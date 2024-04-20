@@ -1,7 +1,7 @@
 { config, pkgs, lib, home-manager, ... }:
 
 let
-  user = "%USER%";
+  user = "kevin";
   # Define the content of your file as a derivation
   myEmacsLauncher = pkgs.writeScript "emacs-launcher.command" ''
     #!/bin/sh
@@ -23,22 +23,22 @@ in
     shell = pkgs.zsh;
   };
 
-  homebrew = {
-    enable = true;
-    casks = pkgs.callPackage ./casks.nix {};
+  # homebrew = {
+  #   enable = true;
+  #   casks = pkgs.callPackage ./casks.nix {};
 
-    # These app IDs are from using the mas CLI app
-    # mas = mac app store
-    # https://github.com/mas-cli/mas
-    #
-    # $ nix shell nixpkgs#mas
-    # $ mas search <app name>
-    #
-    masApps = {
-      "1password" = 1333542190;
-      "wireguard" = 1451685025;
-    };
-  };
+  #   # These app IDs are from using the mas CLI app
+  #   # mas = mac app store
+  #   # https://github.com/mas-cli/mas
+  #   #
+  #   # $ nix shell nixpkgs#mas
+  #   # $ mas search <app name>
+  #   #
+  #   masApps = {
+  #     # "1password" = 1333542190;
+  #     # "wireguard" = 1451685025;
+  #   };
+  # };
 
   # Enable home-manager
   home-manager = {
@@ -68,15 +68,15 @@ in
     dock = {
       enable = true;
       entries = [
-        { path = "/Applications/Slack.app/"; }
+        # { path = "/Applications/Slack.app/"; }
         { path = "/System/Applications/Messages.app/"; }
-        { path = "/System/Applications/Facetime.app/"; }
-        { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
-        { path = "/System/Applications/Music.app/"; }
-        { path = "/System/Applications/News.app/"; }
+        # { path = "/System/Applications/Facetime.app/"; }
+        { path = "${pkgs.wezterm}/Applications/Wezterm.app/"; }
+        # { path = "/System/Applications/Music.app/"; }
+        # { path = "/System/Applications/News.app/"; }
         { path = "/System/Applications/Photos.app/"; }
         { path = "/System/Applications/Photo Booth.app/"; }
-        { path = "/System/Applications/TV.app/"; }
+        # { path = "/System/Applications/TV.app/"; }
         { path = "/System/Applications/Home.app/"; }
         {
           path = toString myEmacsLauncher;

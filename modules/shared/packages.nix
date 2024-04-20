@@ -2,6 +2,7 @@
 
 with pkgs; [
   # General packages for development and system management
+  wezterm
   alacritty
   aspell
   aspellDicts.en
@@ -15,6 +16,14 @@ with pkgs; [
   sqlite
   wget
   zip
+  git
+  cheat
+  just
+  helix
+  dotnet-sdk_8
+  discord
+  direnv
+  nixpkgs-fmt
 
   # Encryption and security tools
   age
@@ -23,8 +32,8 @@ with pkgs; [
   libfido2
 
   # Cloud-related tools and SDKs
-  docker
-  docker-compose
+  # docker
+  # docker-compose
 
   # Media-related packages
   emacs-all-the-icons-fonts

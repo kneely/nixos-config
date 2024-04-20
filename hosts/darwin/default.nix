@@ -1,6 +1,6 @@
 { agenix, config, pkgs, ... }:
 
-let user = "%USER%"; in
+let user = "kevin"; in
 
 {
 
@@ -35,6 +35,10 @@ let user = "%USER%"; in
 
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
+  system.activationScripts.postUserActivation.text = ''
+    # Following line should allow us to avoid a logout/login cycle
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  '';
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
