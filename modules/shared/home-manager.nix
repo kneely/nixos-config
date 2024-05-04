@@ -4,6 +4,14 @@ let name = "Kevin Neely";
     user = "kevin";
     email = "kevin.r.neely@outlook.com"; in
 {
+  eza.enable = true;
+  bat.enable = true;
+  atuin.enable = true;
+  zoxide.enable = true;
+  direnv.enable = true;
+  starship.enable = true;
+  dircolors.enable = true;
+
   # Shared shell configuration
   zsh = {
     enable = true;
@@ -39,13 +47,13 @@ let name = "Kevin Neely";
       alias search=rg -p --glob '!node_modules/*'  $@
 
       # Emacs is my editor
-      export ALTERNATE_EDITOR=""
-      export EDITOR="emacsclient -t"
-      export VISUAL="emacsclient -c -a emacs"
+      # export ALTERNATE_EDITOR=""
+      # export EDITOR="emacsclient -t"
+      # export VISUAL="emacsclient -c -a emacs"
 
-      e() {
-          emacsclient -t "$@"
-      }
+      # e() {
+      #     emacsclient -t "$@"
+      # }
 
       # nix shortcuts
       shell() {
@@ -78,9 +86,10 @@ let name = "Kevin Neely";
 	    editor = "vim";
         autocrlf = "input";
       };
-      commit.gpgsign = true;
+      # commit.gpgsign = true;
       pull.rebase = true;
       rebase.autoStash = true;
+      features.manyFiles = false;
     };
   };
 
@@ -270,11 +279,11 @@ let name = "Kevin Neely";
       ''
       (lib.mkIf pkgs.stdenv.hostPlatform.isLinux
         ''
-          IdentityFile /home/${user}/.ssh/id_github
+          IdentityFile /home/${user}/.ssh/id_ed25519
         '')
       (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin
         ''
-          IdentityFile /Users/${user}/.ssh/id_github
+          IdentityFile /Users/${user}/.ssh/id_ed25519
         '')
     ];
   };

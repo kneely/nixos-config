@@ -3,6 +3,7 @@
 with pkgs; [
   # General packages for development and system management
   wezterm
+  micro
   alacritty
   aspell
   aspellDicts.en
@@ -19,11 +20,16 @@ with pkgs; [
   git
   cheat
   just
-  helix
-  dotnet-sdk_8
-  discord
   direnv
   nixpkgs-fmt
+  helix
+
+  # Development SDKs and tools
+  (with dotnetCorePackages; combinePackages [
+    sdk_6_0
+    sdk_7_0
+    sdk_8_0
+  ])
 
   # Encryption and security tools
   age
@@ -36,7 +42,7 @@ with pkgs; [
   # docker-compose
 
   # Media-related packages
-  emacs-all-the-icons-fonts
+  # emacs-all-the-icons-fonts
   dejavu_fonts
   ffmpeg
   fd

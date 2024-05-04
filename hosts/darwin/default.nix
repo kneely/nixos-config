@@ -9,7 +9,7 @@ let user = "kevin"; in
     ../../modules/darwin/home-manager.nix
     ../../modules/shared
     ../../modules/shared/cachix
-     agenix.darwinModules.default
+    agenix.darwinModules.default
   ];
 
   # Auto upgrade nix package and the daemon service.
@@ -42,24 +42,24 @@ let user = "kevin"; in
 
   # Load configuration that is shared across systems
   environment.systemPackages = with pkgs; [
-    emacs-unstable
+    # emacs-unstable
     agenix.packages."${pkgs.system}".default
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Enable fonts dir
   fonts.fontDir.enable = true;
 
-  launchd.user.agents.emacs.path = [ config.environment.systemPath ];
-  launchd.user.agents.emacs.serviceConfig = {
-    KeepAlive = true;
-    ProgramArguments = [
-      "/bin/sh"
-      "-c"
-      "/bin/wait4path ${pkgs.emacs}/bin/emacs && exec ${pkgs.emacs}/bin/emacs --fg-daemon"
-    ];
-    StandardErrorPath = "/tmp/emacs.err.log";
-    StandardOutPath = "/tmp/emacs.out.log";
-  };
+  # launchd.user.agents.emacs.path = [ config.environment.systemPath ];
+  # launchd.user.agents.emacs.serviceConfig = {
+  #   KeepAlive = true;
+  #   ProgramArguments = [
+  #     "/bin/sh"
+  #     "-c"
+  #     "/bin/wait4path ${pkgs.emacs}/bin/emacs && exec ${pkgs.emacs}/bin/emacs --fg-daemon"
+  #   ];
+  #   StandardErrorPath = "/tmp/emacs.err.log";
+  #   StandardOutPath = "/tmp/emacs.out.log";
+  # };
 
   system = {
     stateVersion = 4;
