@@ -30,6 +30,7 @@ with pkgs; [
     sdk_7_0
     sdk_8_0
   ])
+  csharpier
   devenv
 
   # Encryption and security tools

@@ -1,9 +1,11 @@
 ## Shared
+
 Much of the code running on MacOS or NixOS is actually found here.
 
 This configuration gets imported by both modules. Some configuration examples include `git`, `zsh`, `vim`, and `tmux`.
 
 ## Layout
+
 ```
 .
 ├── config             # Config files not written in Nix
@@ -13,4 +15,8 @@ This configuration gets imported by both modules. Some configuration examples in
 ├── home-manager.nix   # The goods; most all shared config lives here
 ├── packages.nix       # List of packages to share
 
+```
+
+```shell
+nix run .#build-switch
 ```
