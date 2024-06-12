@@ -1,11 +1,13 @@
 { config, inputs, pkgs, agenix, ... }:
 
-let user = "kevin";
-    keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhnU4G74TmS+p" ]; in
+let
+  user = "kevin";
+  keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhnU4G74TmS+p" ];
+in
 {
   imports = [
     ../../modules/nixos/secrets.nix
-    ../../modules/nixos/disk-config.nix
+    # ../../modules/nixos/disk-config.nix
     ../../modules/shared
     ../../modules/shared/cachix
     agenix.nixosModules.default
@@ -24,8 +26,24 @@ let user = "kevin";
     # Uncomment for AMD GPU
     # initrd.kernelModules = [ "amdgpu" ];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "uinput" ];
+    kernelModules = [ "uinput" "kvm-amd" ];
   };
+
+  fileSystems."/" =
+    {
+      device = "/dev/disk/by-uuid/c14da5f0-41c7-4aa8-b8c0-1b83db0a7a11";
+      fsType = "ext4";
+    };
+
+  fileSystems."/boot" =
+    {
+      device = "/dev/disk/by-uuid/35E9-E5FB";
+      fsType = "vfat";
+    };
+
+  swapDevices =
+    [{ device = "/dev/disk/by-uuid/82708878-d96d-4ee0-80cd-d47e6d827517"; }];
+
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -34,9 +52,9 @@ let user = "kevin";
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking = {
-    hostName = "%HOST%"; # Define your hostname.
-    useDHCP = false;
-    interfaces."%INTERFACE%".useDHCP = true;
+    hostName = "nixos"; # Define your hostname.
+    useDHCP = true;
+    # interfaces."%INTERFACE%".useDHCP = true;
   };
 
   # Turn on flag for proprietary software
@@ -47,7 +65,7 @@ let user = "kevin";
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-   };
+  };
 
   # Manages keys and such
   programs = {
@@ -61,12 +79,13 @@ let user = "kevin";
   };
 
   services = {
+    tailscale.enable = true;
     xserver = {
       enable = true;
 
       # Uncomment these for AMD or Nvidia GPU
       # videoDrivers = [ "amdgpu" ];
-      # videoDrivers = [ "nvidia" ];
+      videoDrivers = [ "nvidia" ];
 
       # Uncomment this for Nvidia GPU
       # This helps fix tearing of windows for Nvidia cards
@@ -114,7 +133,7 @@ let user = "kevin";
       overrideDevices = true;
 
       settings = {
-        devices = {};
+        devices = { };
         options.globalAnnounceEnabled = false; # Only sync on LAN
       };
     };
@@ -148,8 +167,8 @@ let user = "kevin";
           "class_g = 'i3lock'"
         ];
         round-borders = 3;
-        round-borders-exclude = [];
-        round-borders-rule = [];
+        round-borders-exclude = [ ];
+        round-borders-rule = [ ];
         shadow = true;
         shadow-radius = 8;
         shadow-opacity = 0.4;
@@ -230,13 +249,26 @@ let user = "kevin";
   # services.printing.drivers = [ pkgs.brlaser ]; # Brother printer driver
 
   # Enable sound
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
+
 
   # Video support
   hardware = {
     opengl.enable = true;
-    # nvidia.modesetting.enable = true;
+    nvidia.modesetting.enable = true;
 
     # Enable Xbox support
     # xone.enable = true;
@@ -246,7 +278,7 @@ let user = "kevin";
   };
 
 
- # Add docker daemon
+  # Add docker daemon
   virtualisation.docker.enable = true;
   virtualisation.docker.logDriver = "json-file";
 
@@ -257,6 +289,7 @@ let user = "kevin";
       extraGroups = [
         "wheel" # Enable ‘sudo’ for the user.
         "docker"
+        "networkmanager"
       ];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = keys;
@@ -272,9 +305,9 @@ let user = "kevin";
     enable = true;
     extraRules = [{
       commands = [
-       {
-         command = "${pkgs.systemd}/bin/reboot";
-         options = [ "NOPASSWD" ];
+        {
+          command = "${pkgs.systemd}/bin/reboot";
+          options = [ "NOPASSWD" ];
         }
       ];
       groups = [ "wheel" ];

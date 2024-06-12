@@ -33,6 +33,7 @@ shared-packages ++ [
   rofi-calc
   postgresql
   libtool # for Emacs vterm
+  vscode.fhs
 
   # Screenshot and recording tools
   flameshot
