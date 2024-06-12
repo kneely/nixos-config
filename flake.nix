@@ -1,7 +1,7 @@
 {
   description = "Starter Configuration with secrets for MacOS and NixOS";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     agenix.url = "github:ryantm/agenix";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
@@ -22,7 +22,7 @@
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;
-    }; 
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,14 +38,15 @@
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
       darwinSystems = [ "aarch64-darwin" "x86_64-darwin" ];
       forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) f;
-      devShell = system: let pkgs = nixpkgs.legacyPackages.${system}; in {
-        default = with pkgs; mkShell {
-          nativeBuildInputs = with pkgs; [ bashInteractive git age age-plugin-yubikey ];
-          shellHook = with pkgs; ''
-            export EDITOR=vim
-          '';
+      devShell = system:
+        let pkgs = nixpkgs.legacyPackages.${system}; in {
+          default = with pkgs; mkShell {
+            nativeBuildInputs = with pkgs; [ bashInteractive git age age-plugin-yubikey ];
+            shellHook = with pkgs; ''
+              export EDITOR=vim
+            '';
+          };
         };
-      };
       mkApp = scriptName: system: {
         type = "app";
         program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
@@ -102,14 +103,14 @@
           ];
         }
       );
-
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = inputs;
           modules = [
             disko.nixosModules.disko
-            home-manager.nixosModules.home-manager {
+            home-manager.nixosModules.home-manager
+            {
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -122,5 +123,6 @@
         # Add other hosts here in a similar manner
       };
     };
-  };
 }
+
+

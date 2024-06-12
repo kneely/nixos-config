@@ -17,7 +17,7 @@ let user = "kevin"; in
 
   # Setup user, packages, programs
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
     settings.trusted-users = [ "@admin" "${user}" ];
 
     gc = {
