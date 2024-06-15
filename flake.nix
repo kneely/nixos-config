@@ -113,7 +113,7 @@
           system = "x86_64-linux";
           specialArgs = inputs;
           modules = [
-            # nixarr.nixosModules.default
+            nixarr.nixosModules.default
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
             {
