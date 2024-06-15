@@ -1,7 +1,7 @@
 {
   description = "Starter Configuration with secrets for MacOS and NixOS";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     agenix.url = "github:ryantm/agenix";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
@@ -31,8 +31,9 @@
       url = "git+ssh://git@github.com/kneely/nix-secrets.git";
       flake = false;
     };
+    nixarr.url = "github:rasmus-kirk/nixarr";
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets, nixarr } @inputs:
     let
       user = "kevin";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -108,6 +109,7 @@
           system = "x86_64-linux";
           specialArgs = inputs;
           modules = [
+            nixarr.nixosModules.default
             disko.nixosModules.disko
             home-manager.nixosModules.home-manager
             {
