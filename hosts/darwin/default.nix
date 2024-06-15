@@ -47,7 +47,7 @@ let user = "kevin"; in
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Enable fonts dir
-  fonts.fontDir.enable = true;
+  # fonts.fontDir.enable = true;
 
   # launchd.user.agents.emacs.path = [ config.environment.systemPath ];
   # launchd.user.agents.emacs.serviceConfig = {
