@@ -33,7 +33,7 @@
     };
     # nixarr.url = "github:rasmus-kirk/nixarr";
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets, nixarr } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
     let
       user = "kevin";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
