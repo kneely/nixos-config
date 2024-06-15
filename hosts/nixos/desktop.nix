@@ -349,16 +349,16 @@ in
       enable = true;
       # These options set up a nginx HTTPS reverse proxy, so you can access
       # Jellyfin on your domain with HTTPS
-      expose.https = {
-        enable = true;
-        domainName = "your.domain.com";
-        acmeMail = "your@email.com"; # Required for ACME-bot
-      };
+      # expose.https = {
+      #   enable = true;
+      #   domainName = "your.domain.com";
+      #   acmeMail = "your@email.com"; # Required for ACME-bot
+      # };
     };
 
     transmission = {
       enable = true;
-      vpn.enable = true;
+      # vpn.enable = true;
       peerPort = 50000; # Set this to the port forwarded by your VPN
     };
 
