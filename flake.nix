@@ -38,7 +38,7 @@
     # nixarr.url = "github:rasmus-kirk/nixarr";
     # deploy-rs.url = "github:serokell/deploy-rs";
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets, profiles } @inputs:
     let
       user = "kevin";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
