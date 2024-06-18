@@ -81,10 +81,10 @@ in
   services = {
     tailscale = {
       enable = true;
-      extraDaemonFlags = [
-        "--ssh"
-        "--accept-routes"
-      ];
+      # extraDaemonFlags = [
+      #   "--ssh"
+      #   "--accept-routes"
+      # ];
     };
 
     xserver = {
