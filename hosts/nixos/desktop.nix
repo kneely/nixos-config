@@ -13,7 +13,7 @@ in
     agenix.nixosModules.default
   ];
 
-  profiiles.mediaserver.enable = true;
+  profiles.mediaserver.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
