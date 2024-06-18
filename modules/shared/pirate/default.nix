@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
 
     services = {
-      sabnzb = {
+      sabnzbd = {
         enable = true;
         user = "sabnzbd";
         group = "media";
