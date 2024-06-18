@@ -34,21 +34,6 @@ in {
         dataDir = "${dataDirBase}/sonarr";
       };
 
-      transmission = {
-        enable = true;
-        downloadDirPermissions = "755";
-        settings = {
-          download-dir = "/space/incoming";
-          incomplete-dir = "/var/lib/transmission/.incomplete";
-          rpc-authentication-required = true;
-          rpc-whitelist-enabled = false;
-          rpc-host-whitelist-enabled = false;
-          rpc-username = "marcus";
-          umask = 0;
-        };
-        credentialsFile = config.age.secrets.transmission.path;
-      };
-
       jellyfin.enable = true;
     };
   };
