@@ -1,42 +1,55 @@
-{ services, ... }:
-{
-  services = {};
-  # nixarr = {
-  #   enable = true;
-  #   mediaDir = "/data/media";
-  #   stateDir = "/data/media/.state/nixarr";
+{ pkgs, lib, config, ... }:
+with lib;
+let 
+  cfg = config.profiles.mediaserver;
+  dataDirBase = "/pool/media";
+in {
+  options.profiles.mediaserver.enable =
+    mkEnableOption "Enable media server profile";
 
-  #   # vpn = {
-  #   #   enable = true;
-  #   #   # WARNING: This file must _not_ be in the config git directory
-  #   #   # You can usually get this wireguard file from your VPN provider
-  #   #   wgConf = "/data/.secret/wg.conf";
-  #   # };
+  config = mkIf cfg.enable {
 
-  #   jellyfin = {
-  #     enable = true;
-  #     # These options set up a nginx HTTPS reverse proxy, so you can access
-  #     # Jellyfin on your domain with HTTPS
-  #     # expose.https = {
-  #     #   enable = true;
-  #     #   domainName = "your.domain.com";
-  #     #   acmeMail = "your@email.com"; # Required for ACME-bot
-  #     # };
-  #   };
+    services = {
+      nzbget = {
+        enable = true;
+        user = "nzbget";
+        group = "media";
+        setting = {
+          MainDir = "${dataDirBase}/downloads/usenet";
+          ControlIP=0.0.0.0;
+        };
+      };
 
-  #   transmission = {
-  #     enable = true;
-  #     # vpn.enable = true;
-  #     peerPort = 50000; # Set this to the port forwarded by your VPN
-  #   };
+      radarr = {
+        enable = true;
+        user = "radarr";
+        group = "media";
+        dataDir = "${dataDirBase}/radarr";
+      };
 
-  #   # It is possible for this module to run the *Arrs through a VPN, but it
-  #   # is generally not recommended, as it can cause rate-limiting issues.
-  #   bazarr.enable = true;
-  #   lidarr.enable = true;
-  #   prowlarr.enable = true;
-  #   radarr.enable = true;
-  #   readarr.enable = true;
-  #   sonarr.enable = true;
-  # };
+      sonarr = {
+        enable = true;
+        user = "sonarr";
+        group = "media";
+        dataDir = "${dataDirBase}/sonarr";
+      };
+
+      transmission = {
+        enable = true;
+        downloadDirPermissions = "755";
+        settings = {
+          download-dir = "/space/incoming";
+          incomplete-dir = "/var/lib/transmission/.incomplete";
+          rpc-authentication-required = true;
+          rpc-whitelist-enabled = false;
+          rpc-host-whitelist-enabled = false;
+          rpc-username = "marcus";
+          umask = 0;
+        };
+        credentialsFile = config.age.secrets.transmission.path;
+      };
+
+      jellyfin.enable = true;
+    };
+  };
 }
