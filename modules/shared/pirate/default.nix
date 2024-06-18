@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }:
 with lib;
 let 
-  cfg = config.services.mediaserver;
+  cfg = config.profiles.mediaserver;
   dataDirBase = "/pool/media";
 in {
-  options.services.mediaserver.enable =
+  options.profiles.mediaserver.enable =
     mkEnableOption "Enable media server profile";
 
   config = mkIf cfg.enable {
@@ -16,7 +16,7 @@ in {
         group = "media";
         setting = {
           MainDir = "${dataDirBase}/downloads/usenet";
-          ControlIP=0.0.0.0;
+          # ControlIP=0.0.0.0;
         };
       };
 
