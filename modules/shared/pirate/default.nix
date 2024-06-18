@@ -10,14 +10,14 @@ in {
   config = mkIf cfg.enable {
 
     services = {
-      nzbget = {
+      sabnzb = {
         enable = true;
-        user = "nzbget";
+        user = "sabnzbd";
         group = "media";
-        settings = {
-          MainDir = "${dataDirBase}/downloads/usenet";
-          # ControlIP=0.0.0.0;
-        };
+        # settings = {
+        #   MainDir = "${dataDirBase}/downloads/usenet";
+        #   # ControlIP=0.0.0.0;
+        # };
       };
 
       radarr = {
