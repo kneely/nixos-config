@@ -10,6 +10,7 @@ in
     # ../../modules/nixos/disk-config.nix
     ../../modules/shared
     ../../modules/shared/cachix
+    ../../modules/shared/pirate
     agenix.nixosModules.default
   ];
 
