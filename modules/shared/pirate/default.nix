@@ -14,7 +14,7 @@ in {
         enable = true;
         user = "nzbget";
         group = "media";
-        setting = {
+        settings = {
           MainDir = "${dataDirBase}/downloads/usenet";
           # ControlIP=0.0.0.0;
         };
