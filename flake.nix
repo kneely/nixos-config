@@ -36,6 +36,7 @@
       flake = false;
     };
     nixarr.url = "github:rasmus-kirk/nixarr";
+    # deploy-rs.url = "github:serokell/deploy-rs";
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets, nixarr } @inputs:
     let
@@ -129,6 +130,8 @@
         # Add other hosts here in a similar manner
       };
     };
+  
 }
+
 
 
