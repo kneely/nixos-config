@@ -20,6 +20,8 @@ in {
         # };
       };
 
+      prowlarr.enable = true;
+
       radarr = {
         enable = true;
         user = "radarr";
@@ -34,7 +36,11 @@ in {
         dataDir = "${dataDirBase}/sonarr";
       };
 
-      jellyfin.enable = true;
+      jellyfin = {
+        enable = true;
+        user = "jellyfin";
+        group = "media";
+      };
     };
   };
 }
