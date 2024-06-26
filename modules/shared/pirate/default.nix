@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }:
 with lib;
 let 
-  cfg = config.profiles.mediaserver;
+  cfg = config.services.mediaserver;
   dataDirBase = "/pool/media";
 in {
-  options.profiles.mediaserver.enable =
+  options.services.mediaserver.enable =
     mkEnableOption "Enable media server profile";
 
   config = mkIf cfg.enable {
