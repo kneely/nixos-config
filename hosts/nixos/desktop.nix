@@ -31,6 +31,7 @@ in
     # initrd.kernelModules = [ "amdgpu" ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "uinput" "kvm-amd" ];
+    supportedFilesystems = ["zfs"];
   };
 
   # Set your time zone.
@@ -42,6 +43,7 @@ in
   networking = {
     hostName = "nixos"; # Define your hostname.
     useDHCP = true;
+    hostId = "8ccbba1c";
     # interfaces."%INTERFACE%".useDHCP = true;
   };
 
