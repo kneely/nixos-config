@@ -49,42 +49,42 @@ ask_for_star() {
 ask_for_star
 
 # Fetch username from the system
-export USERNAME=$(whoami)
+export USERNAME=kevin
 
-# If the username is 'nixos' or 'root', ask the user for their username
-if [[ "$USERNAME" == "nixos" ]] || [[ "$USERNAME" == "root" ]]; then
-  _prompt "${YELLOW}You're running as $USERNAME. Please enter your desired username: ${NC}" USERNAME
-fi
+# # If the username is 'nixos' or 'root', ask the user for their username
+# if [[ "$USERNAME" == "nixos" ]] || [[ "$USERNAME" == "root" ]]; then
+#   _prompt "${YELLOW}You're running as $USERNAME. Please enter your desired username: ${NC}" USERNAME
+# fi
 
-# Check if git is available
-if command -v git >/dev/null 2>&1; then
-  # Fetch email and name from git config
-  export GIT_EMAIL=$(git config --get user.email)
-  export GIT_NAME=$(git config --get user.name)
-else
-  _print "${RED}Git is not available on this system.${NC}"
-fi
+# # Check if git is available
+# if command -v git >/dev/null 2>&1; then
+#   # Fetch email and name from git config
+#   export GIT_EMAIL=$(git config --get user.email)
+#   export GIT_NAME=$(git config --get user.name)
+# else
+#   _print "${RED}Git is not available on this system.${NC}"
+# fi
 
-# If git email is not found or git is not available, ask the user
-if [[ -z "$GIT_EMAIL" ]]; then
-  _prompt "${YELLOW}Please enter your email: ${NC}" GIT_EMAIL
-fi
+# # If git email is not found or git is not available, ask the user
+# if [[ -z "$GIT_EMAIL" ]]; then
+#   _prompt "${YELLOW}Please enter your email: ${NC}" GIT_EMAIL
+# fi
 
-# If git name is not found or git is not available, ask the user
-if [[ -z "$GIT_NAME" ]]; then
-  _prompt "${YELLOW}Please enter your name: ${NC}" GIT_NAME
-fi
+# # If git name is not found or git is not available, ask the user
+# if [[ -z "$GIT_NAME" ]]; then
+#   _prompt "${YELLOW}Please enter your name: ${NC}" GIT_NAME
+# fi
 
-if [[ -z "$GITHUB_USER" ]]; then
-  _prompt "${YELLOW}Please enter your Github username: ${NC}" GITHUB_USER
-fi
+# if [[ -z "$GITHUB_USER" ]]; then
+#   _prompt "${YELLOW}Please enter your Github username: ${NC}" GITHUB_USER
+# fi
 
-if [[ -z "$GITHUB_SECRETS_REPO" ]]; then
-  _prompt "${YELLOW}Please enter your Github secrets repository name: ${NC}" GITHUB_SECRETS_REPO
-fi
+# if [[ -z "$GITHUB_SECRETS_REPO" ]]; then
+#   _prompt "${YELLOW}Please enter your Github secrets repository name: ${NC}" GITHUB_SECRETS_REPO
+# fi
 
-export GITHUB_USER
-export GITHUB_SECRETS_REPO
+# export GITHUB_USER
+# export GITHUB_SECRETS_REPO
 
 select_boot_disk() {
   local disks
@@ -143,33 +143,33 @@ confirm_details() {
 confirm_details
 
 # Function to replace tokens in each file
-replace_tokens() {
-  local file="$1"
-  if [[ $(basename $1) != "apply" ]]; then
-    if [[ "$OS" == "Darwin" ]]; then
-      # macOS
-      LC_ALL=C LANG=C sed -i '' -e "s/%USER%/$USERNAME/g" "$file"
-      LC_ALL=C LANG=C sed -i '' -e "s/%EMAIL%/$GIT_EMAIL/g" "$file"
-      LC_ALL=C LANG=C sed -i '' -e "s/%NAME%/$GIT_NAME/g" "$file"
-      LC_ALL=C LANG=C sed -i '' -e "s/%GITHUB_USER%/$GITHUB_USER/g" "$file"
-      LC_ALL=C LANG=C sed -i '' -e "s/%GITHUB_SECRETS_REPO%/$GITHUB_SECRETS_REPO/g" "$file"
-    else
-      # Linux or other
-      sed -i -e "s/%USER%/$USERNAME/g" "$file"
-      sed -i -e "s/%EMAIL%/$GIT_EMAIL/g" "$file"
-      sed -i -e "s/%NAME%/$GIT_NAME/g" "$file"
-      sed -i -e "s/%INTERFACE%/$PRIMARY_IFACE/g" "$file"
-      sed -i -e "s/%DISK%/$BOOT_DISK/g" "$file"
-      sed -i -e "s/%HOST%/$HOST_NAME/g" "$file"
-      sed -i -e "s/%GITHUB_USER%/$GITHUB_USER/g" "$file"
-      sed -i -e "s/%GITHUB_SECRETS_REPO%/$GITHUB_SECRETS_REPO/g" "$file"
-    fi
-  fi
-}
+# replace_tokens() {
+#   local file="$1"
+#   if [[ $(basename $1) != "apply" ]]; then
+#     if [[ "$OS" == "Darwin" ]]; then
+#       # macOS
+#       LC_ALL=C LANG=C sed -i '' -e "s/%USER%/$USERNAME/g" "$file"
+#       LC_ALL=C LANG=C sed -i '' -e "s/%EMAIL%/$GIT_EMAIL/g" "$file"
+#       LC_ALL=C LANG=C sed -i '' -e "s/%NAME%/$GIT_NAME/g" "$file"
+#       LC_ALL=C LANG=C sed -i '' -e "s/%GITHUB_USER%/$GITHUB_USER/g" "$file"
+#       LC_ALL=C LANG=C sed -i '' -e "s/%GITHUB_SECRETS_REPO%/$GITHUB_SECRETS_REPO/g" "$file"
+#     else
+#       # Linux or other
+#       sed -i -e "s/%USER%/$USERNAME/g" "$file"
+#       sed -i -e "s/%EMAIL%/$GIT_EMAIL/g" "$file"
+#       sed -i -e "s/%NAME%/$GIT_NAME/g" "$file"
+#       sed -i -e "s/%INTERFACE%/$PRIMARY_IFACE/g" "$file"
+#       sed -i -e "s/%DISK%/$BOOT_DISK/g" "$file"
+#       sed -i -e "s/%HOST%/$HOST_NAME/g" "$file"
+#       sed -i -e "s/%GITHUB_USER%/$GITHUB_USER/g" "$file"
+#       sed -i -e "s/%GITHUB_SECRETS_REPO%/$GITHUB_SECRETS_REPO/g" "$file"
+#     fi
+#   fi
+# }
 
-# Traverse directories and call replace_tokens on each Nix file
-export -f replace_tokens
-find . -type f -exec bash -c 'replace_tokens "$0"' {} \;
+# # Traverse directories and call replace_tokens on each Nix file
+# export -f replace_tokens
+# find . -type f -exec bash -c 'replace_tokens "$0"' {} \;
 
 echo "$USERNAME" > /tmp/username.txt
 _print "${GREEN}User $USERNAME information applied.${NC}"

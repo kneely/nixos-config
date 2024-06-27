@@ -71,10 +71,10 @@ prompt_reboot() {
 
 cleanup
 check_installer
-download_config
+# download_config
 run_apply
 run_disko
-setup_files
+# setup_files
 install_nixos
 cleanup
 prompt_reboot
