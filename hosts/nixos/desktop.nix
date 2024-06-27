@@ -305,6 +305,7 @@ in
         "wheel" # Enable ‘sudo’ for the user.
         "docker"
         "networkmanager"
+        "media"
       ];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = keys;
