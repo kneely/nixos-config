@@ -14,6 +14,7 @@ in {
         enable = true;
         user = "sabnzbd";
         group = "media";
+        openFirewall = true;
         # settings = {
         #   MainDir = "${dataDirBase}/downloads/usenet";
         #   # ControlIP=0.0.0.0;
