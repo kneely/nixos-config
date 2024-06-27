@@ -87,6 +87,6 @@ install_nixos
 cleanup
 
 echo "Exporting the zfs pool"
-zpool export -a
+sudo zpool export -a
 
 prompt_reboot

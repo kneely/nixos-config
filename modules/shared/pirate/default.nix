@@ -2,7 +2,7 @@
 with lib;
 let 
   cfg = config.services.mediaserver;
-  dataDirBase = "/pool/media";
+  dataDirBase = "/storage/media";
 in {
   options.services.mediaserver.enable =
     mkEnableOption "Enable media server profile";

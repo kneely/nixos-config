@@ -62,7 +62,7 @@ in
     dock = {
       enable = true;
       entries = [
-        { path = "/Applications/Arc.app/"; }
+        { path = "/Applications/Floorp.app/"; }
         { path = "${pkgs.wezterm}/Applications/Wezterm.app/"; }
         # Visual Studio Code
         { path = "/Applications/Visual Studio Code.app/"; }
