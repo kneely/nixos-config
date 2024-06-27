@@ -37,7 +37,7 @@ in {
         dataDir = "${dataDirBase}/sonarr";
       };
 
-      jellyseer = {
+      jellyseerr = {
         enable = true;
         openFirewall = true;
       };
