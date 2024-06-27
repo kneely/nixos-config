@@ -35,64 +35,65 @@ _: {
           };
         };
       };
-      sdb = {
-        type = "disk";
-        device = "/dev/sdb";
-        content = {
-          type = "gpt";
-          partitions = {
-            zfs = {
-              size = "100%";
-              content = {
-                type = "zfs";
-                pool = "storage";
-              };
-            };
-          };
-        };
-      };
-      sdc = {
-        type = "disk";
-        device = "/dev/sdc";
-        content = {
-          type = "gpt";
-          partitions = {
-            zfs = {
-              size = "100%";
-              content = {
-                type = "zfs";
-                pool = "storage";
-              };
-            };
-          };
-        };
-      };
     };
-    zpool = {
-      storage = {
-        type = "zpool";
-        mode = "mirror";
-        mountpoint = "/storage";
+    #   sdb = {
+    #     type = "disk";
+    #     device = "/dev/sdb";
+    #     content = {
+    #       type = "gpt";
+    #       partitions = {
+    #         zfs = {
+    #           size = "100%";
+    #           content = {
+    #             type = "zfs";
+    #             pool = "storage";
+    #           };
+    #         };
+    #       };
+    #     };
+    #   };
+    #   sdc = {
+    #     type = "disk";
+    #     device = "/dev/sdc";
+    #     content = {
+    #       type = "gpt";
+    #       partitions = {
+    #         zfs = {
+    #           size = "100%";
+    #           content = {
+    #             type = "zfs";
+    #             pool = "storage";
+    #           };
+    #         };
+    #       };
+    #     };
+    #   };
+    # };
+    # zpool = {
+    #   storage = {
+    #     type = "zpool";
+    #     mode = "mirror";
+    #     mountpoint = "/storage";
 
-        datasets = {
-          media = {
-            type = "zfs_fs";
-            mountpoint = "/storage/media";
-          };
-          databases = {
-            type = "zfs_fs";
-            mountpoint = "/storage/dbs";
-          };
-          configs = {
-            type = "zfs_fs";
-            mountpoint = "/storage/configs";
-          };
-          docker = {
-            type = "zfs_fs";
-            mountpoint = "/storage/docker";
-          };
-        };
-      };
-    };
+    #     datasets = {
+    #       media = {
+    #         type = "zfs_fs";
+    #         mountpoint = "/storage/media";
+    #       };
+    #       databases = {
+    #         type = "zfs_fs";
+    #         mountpoint = "/storage/dbs";
+    #       };
+    #       configs = {
+    #         type = "zfs_fs";
+    #         mountpoint = "/storage/configs";
+    #       };
+    #       docker = {
+    #         type = "zfs_fs";
+    #         mountpoint = "/storage/docker";
+    #       };
+    #     };
+    #   };
+    # };
   };
 }
