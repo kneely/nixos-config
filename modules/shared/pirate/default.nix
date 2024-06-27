@@ -37,6 +37,11 @@ in {
         dataDir = "${dataDirBase}/sonarr";
       };
 
+      jellyseer = {
+        enable = true;
+        openFirewall = true;
+      };
+
       jellyfin = {
         enable = true;
         user = "jellyfin";
