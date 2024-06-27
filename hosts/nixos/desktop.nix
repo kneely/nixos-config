@@ -111,7 +111,6 @@ in
       # '';
 
       # LightDM Display Manager
-      displayManager.defaultSession = "none+bspwm";
       displayManager.lightdm = {
         enable = true;
         greeters.slick.enable = true;
@@ -124,12 +123,14 @@ in
       };
 
       # Turn Caps Lock into Ctrl
-      layout = "us";
-      xkbOptions = "ctrl:nocaps";
-
-      # Better support for general peripherals
-      libinput.enable = true;
+      xkb.layout = "us";
+      # xkbOptions = "ctrl:nocaps";
     };
+
+    displayManager.defaultSession = "none+bspwm";
+
+    # Better support for general peripherals
+    libinput.enable = true;
 
     # Let's be able to SSH into this machine
     openssh.enable = true;
