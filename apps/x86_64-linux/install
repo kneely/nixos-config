@@ -85,4 +85,8 @@ run_disko
 setup_files
 install_nixos
 cleanup
+
+echo "Exporting the zfs pool"
+zpool export -a
+
 prompt_reboot
