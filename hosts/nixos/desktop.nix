@@ -2,7 +2,7 @@
 
 let
   user = "kevin";
-  keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhnU4G74TmS+p" ];
+  keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILSEbsoxF9xfI31KzO6TidOT5nlHge0H/Ye7lQGREQCg" ];
 in
 {
   imports = [

@@ -74,11 +74,13 @@ prompt_reboot() {
   esac
 }
 
+export USERNAME=kevin
+
 cleanup
 check_installer
 download_config
 fix_permissions
-run_apply
+# run_apply
 run_disko
 setup_files
 install_nixos
