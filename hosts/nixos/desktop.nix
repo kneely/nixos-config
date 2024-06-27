@@ -17,8 +17,8 @@ in
   users.groups.media = {
     members = [ user ];
   };
-  
-  services.mediaserver.enable = true;
+
+  # services.mediaserver.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
