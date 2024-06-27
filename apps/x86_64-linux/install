@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -exu
 
+fix_permissions() {
+    chmod a+x ./apps/x86_64-linux/apply
+    chmod a+x ./apps/x86_64-linux/install
+}
+
 check_installer() {
   if [ -e /etc/NIXOS ]; then
     echo -e "\e[1;32mRunning in the NixOS installer environment.\e[0m"
@@ -71,10 +76,11 @@ prompt_reboot() {
 
 cleanup
 check_installer
-# download_config
+download_config
+fix_permissions
 run_apply
 run_disko
-# setup_files
+setup_files
 install_nixos
 cleanup
 prompt_reboot
