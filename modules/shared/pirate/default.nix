@@ -9,6 +9,10 @@ in {
 
   config = mkIf cfg.enable {
 
+    systemd.tmpfiles.rules = [
+      "d ${dataDirBase}/media 0770 - media - -"
+    ];
+
     services = {
       sabnzbd = {
         enable = true;
