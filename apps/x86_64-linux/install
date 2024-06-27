@@ -62,7 +62,7 @@ install_nixos() {
       ;;
   esac
 
-  sudo nixos-install --flake .#$desktop $@
+  sudo nixos-install --flake .#desktop $@
   sudo chmod -R 775 /mnt/etc/nixos
 }
 
