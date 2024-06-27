@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
 
     systemd.tmpfiles.rules = [
-      "d ${dataDirBase}/media 0770 - media - -"
+      "d ${dataDirBase} 0770 - media - -"
     ];
 
     services = {
