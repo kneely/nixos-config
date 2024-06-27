@@ -15,6 +15,8 @@ in {
       "d ${dataDirBase}/downloads/usenet 0770 - media - -"
       "d ${dataDirBase}/downloads/usenet/complete 0770 - media - -"
       "d ${dataDirBase}/downloads/usenet/incomplete 0770 - media - -"
+      "d ${dataDirBase}/movies 0770 - media - -"
+      "d ${dataDirBase}/tv 0770 - media - -"
     ];
 
     services = {
