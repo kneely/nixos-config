@@ -36,9 +36,9 @@
       flake = false;
     };
     # nixarr.url = "github:rasmus-kirk/nixarr";
-    # deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets, deploy-rs } @inputs:
     let
       user = "kevin";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -127,8 +127,19 @@
             ./hosts/nixos/desktop.nix
           ];
         };
+        
         # Add other hosts here in a similar manner
       };
+    #   deploy.nodes.desktop = {
+    #     hostname = "nixos";
+    #     profiles.kevin = {
+    #       user = "kevin";
+    #       remoteBuild = true;
+    #       path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.desktop;
+    #     };
+    #   };
+
+    # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }
 

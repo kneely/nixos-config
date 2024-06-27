@@ -100,7 +100,7 @@ let user = "kevin"; in
 
     keyboard = {
       enableKeyMapping = true;
-      remapCapsLockToControl = true;
+      # remapCapsLockToControl = true;
     };
   };
 }

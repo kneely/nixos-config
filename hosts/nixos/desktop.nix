@@ -7,13 +7,15 @@ in
 {
   imports = [
     ../../modules/nixos/secrets.nix
-    # ../../modules/nixos/disk-config.nix
+    ../../modules/nixos/disk-config.nix
     ../../modules/shared
     ../../modules/shared/cachix
+    ../../modules/shared/pirate
     agenix.nixosModules.default
   ];
 
-  profiles.mediaserver.enable = true;
+  users.groups.media = {};
+  services.mediaserver.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -29,23 +31,23 @@ in
     # initrd.kernelModules = [ "amdgpu" ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "uinput" "kvm-amd" ];
+    supportedFilesystems = ["zfs"];
   };
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/c14da5f0-41c7-4aa8-b8c0-1b83db0a7a11";
-      fsType = "ext4";
-    };
+  #   fileSystems."/" =
+  #   {
+  #     device = "/dev/disk/by-uuid/c14da5f0-41c7-4aa8-b8c0-1b83db0a7a11";
+  #     fsType = "ext4";
+  #   };
 
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/35E9-E5FB";
-      fsType = "vfat";
-    };
+  # fileSystems."/boot" =
+  #   {
+  #     device = "/dev/disk/by-uuid/35E9-E5FB";
+  #     fsType = "vfat";
+  #   };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/82708878-d96d-4ee0-80cd-d47e6d827517"; }];
-
+  # swapDevices =
+  #   [{ device = "/dev/disk/by-uuid/82708878-d96d-4ee0-80cd-d47e6d827517"; }];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -56,6 +58,7 @@ in
   networking = {
     hostName = "nixos"; # Define your hostname.
     useDHCP = true;
+    hostId = "8ccbba1c";
     # interfaces."%INTERFACE%".useDHCP = true;
   };
 

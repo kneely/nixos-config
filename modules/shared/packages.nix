@@ -23,6 +23,7 @@ with pkgs; [
   direnv
   nixpkgs-fmt
   helix
+  # floorp
 
   # Development SDKs and tools
   (with dotnetCorePackages; combinePackages [

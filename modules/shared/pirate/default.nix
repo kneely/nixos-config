@@ -1,24 +1,26 @@
 { pkgs, lib, config, ... }:
 with lib;
 let 
-  cfg = config.profiles.mediaserver;
+  cfg = config.services.mediaserver;
   dataDirBase = "/pool/media";
 in {
-  options.profiles.mediaserver.enable =
+  options.services.mediaserver.enable =
     mkEnableOption "Enable media server profile";
 
   config = mkIf cfg.enable {
 
     services = {
-      nzbget = {
+      sabnzbd = {
         enable = true;
-        user = "nzbget";
+        user = "sabnzbd";
         group = "media";
-        setting = {
-          MainDir = "${dataDirBase}/downloads/usenet";
-          ControlIP=0.0.0.0;
-        };
+        # settings = {
+        #   MainDir = "${dataDirBase}/downloads/usenet";
+        #   # ControlIP=0.0.0.0;
+        # };
       };
+
+      prowlarr.enable = true;
 
       radarr = {
         enable = true;
@@ -34,22 +36,11 @@ in {
         dataDir = "${dataDirBase}/sonarr";
       };
 
-      transmission = {
+      jellyfin = {
         enable = true;
-        downloadDirPermissions = "755";
-        settings = {
-          download-dir = "/space/incoming";
-          incomplete-dir = "/var/lib/transmission/.incomplete";
-          rpc-authentication-required = true;
-          rpc-whitelist-enabled = false;
-          rpc-host-whitelist-enabled = false;
-          rpc-username = "marcus";
-          umask = 0;
-        };
-        credentialsFile = config.age.secrets.transmission.path;
+        user = "jellyfin";
+        group = "media";
       };
-
-      jellyfin.enable = true;
     };
   };
 }
