@@ -56,6 +56,7 @@ in {
         enable = true;
         user = "jellyfin";
         group = "media";
+        openFirewall = true;
       };
     };
   };
