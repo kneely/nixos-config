@@ -35,6 +35,7 @@ in
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "uinput" "kvm-amd" ];
     supportedFilesystems = ["zfs"];
+    zfs.extraPools = [ "storage" ];
   };
 
   #   fileSystems."/" =
