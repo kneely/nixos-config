@@ -9,15 +9,15 @@ in {
 
   config = mkIf cfg.enable {
 
-    # systemd.tmpfiles.rules = [
-    #   "d ${dataDirBase} 0770 - media - -"
-    #   "d ${dataDirBase}/downloads 0770 - media - -"
-    #   "d ${dataDirBase}/downloads/usenet 0770 - media - -"
-    #   "d ${dataDirBase}/downloads/usenet/complete 0770 - media - -"
-    #   "d ${dataDirBase}/downloads/usenet/incomplete 0770 - media - -"
-    #   "d ${dataDirBase}/movies 0770 - media - -"
-    #   "d ${dataDirBase}/tv 0770 - media - -"
-    # ];
+    systemd.tmpfiles.rules = [
+      "d ${dataDirBase} 0770 - media - -"
+      "d ${dataDirBase}/downloads 0770 - media - -"
+      "d ${dataDirBase}/downloads/usenet 0770 - media - -"
+      "d ${dataDirBase}/downloads/usenet/complete 0770 - media - -"
+      "d ${dataDirBase}/downloads/usenet/incomplete 0770 - media - -"
+      "d ${dataDirBase}/movies 0770 - media - -"
+      "d ${dataDirBase}/tv 0770 - media - -"
+    ];
 
     services = {
       sabnzbd = {
