@@ -3,7 +3,7 @@ _: {
     disk = {
       sda = {
         type = "disk";
-        device = "/dev/sda";
+        device = "/dev/disk/by-id/ata-SanDisk_SDSSDH3_512G_21400U805379";
         content = {
           type = "gpt";
           partitions = {
@@ -37,7 +37,7 @@ _: {
       };
       sdb = {
         type = "disk";
-        device = "/dev/sdb";
+        device = "/dev/disk/by-id/ata-ST18000NM003D-3DL103_ZVT9H0WN";
         content = {
           type = "gpt";
           partitions = {
@@ -53,7 +53,7 @@ _: {
       };
       sdc = {
         type = "disk";
-        device = "/dev/sdc";
+        device = "/dev/disk/by-id/ata-ST18000NM003D-3DL103_ZVT9PFC7";
         content = {
           type = "gpt";
           partitions = {
