@@ -19,6 +19,12 @@ in {
       "d ${dataDirBase}/tv 0770 - media - -"
     ];
 
+    systemd.services."jellyfin".serviceConfig = {
+      DeviceAllow = pkgs.lib.mkForce [ "char-drm rw" "char-nvidia-frontend rw" "char-nvidia-uvm rw" ];
+      PrivateDevices = pkgs.lib.mkForce true;
+      RestrictAddressFamilies = pkgs.lib.mkForce [ "AF_UNIX" "AF_NETLINK" "AF_INET" "AF_INET6" ];
+    };
+
     services = {
       sabnzbd = {
         enable = true;
