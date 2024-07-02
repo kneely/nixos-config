@@ -2,7 +2,7 @@
 
 let
   user = "kevin";
-  keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhnU4G74TmS+p" ];
+  keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILSEbsoxF9xfI31KzO6TidOT5nlHge0H/Ye7lQGREQCg" ];
 in
 {
   imports = [
@@ -14,7 +14,10 @@ in
     agenix.nixosModules.default
   ];
 
-  users.groups.media = {};
+  users.groups.media = {
+    members = [ user ];
+  };
+
   services.mediaserver.enable = true;
 
   # Use the systemd-boot EFI boot loader.
@@ -32,6 +35,7 @@ in
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "uinput" "kvm-amd" ];
     supportedFilesystems = ["zfs"];
+    zfs.extraPools = [ "storage" ];
   };
 
   #   fileSystems."/" =
@@ -108,7 +112,6 @@ in
       # '';
 
       # LightDM Display Manager
-      displayManager.defaultSession = "none+bspwm";
       displayManager.lightdm = {
         enable = true;
         greeters.slick.enable = true;
@@ -121,12 +124,14 @@ in
       };
 
       # Turn Caps Lock into Ctrl
-      layout = "us";
-      xkbOptions = "ctrl:nocaps";
-
-      # Better support for general peripherals
-      libinput.enable = true;
+      xkb.layout = "us";
+      # xkbOptions = "ctrl:nocaps";
     };
+
+    displayManager.defaultSession = "none+bspwm";
+
+    # Better support for general peripherals
+    libinput.enable = true;
 
     # Let's be able to SSH into this machine
     openssh.enable = true;
@@ -302,6 +307,7 @@ in
         "wheel" # Enable ‘sudo’ for the user.
         "docker"
         "networkmanager"
+        "media"
       ];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = keys;

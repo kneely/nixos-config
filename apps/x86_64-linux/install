@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -exu
 
+fix_permissions() {
+    chmod a+x ./apps/x86_64-linux/apply
+    chmod a+x ./apps/x86_64-linux/install
+}
+
 check_installer() {
   if [ -e /etc/NIXOS ]; then
     echo -e "\e[1;32mRunning in the NixOS installer environment.\e[0m"
@@ -17,7 +22,7 @@ cleanup() {
 download_config() {
   curl -LJ0 https://github.com/kneely/nixos-config/archive/testing.zip -o nixos-config.zip
   unzip nixos-config.zip
-#   mv nixos-config-main/ nixos-config
+  mv nixos-config-testing/ nixos-config
   cd nixos-config
 }
 
@@ -57,7 +62,7 @@ install_nixos() {
       ;;
   esac
 
-  sudo nixos-install --flake .#$desktop $@
+  sudo nixos-install --flake .#desktop $@
   sudo chmod -R 775 /mnt/etc/nixos
 }
 
@@ -69,12 +74,19 @@ prompt_reboot() {
   esac
 }
 
+export USERNAME=kevin
+
 cleanup
 check_installer
 download_config
-run_apply
+fix_permissions
+# run_apply
 run_disko
 setup_files
 install_nixos
 cleanup
+
+echo "Exporting the zfs pool"
+sudo zpool export -a
+
 prompt_reboot

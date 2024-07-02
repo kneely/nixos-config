@@ -22,6 +22,10 @@ gc:
   sudo nix store gc --debug
   sudo nix-collect-garbage --delete-old
 
+test:
+  git pull origin testing
+  sudo nixos-rebuild switch --flake .#desktop
+
 # update nixos or nix-darwin from github
 rb:
     if [[ "$OSTYPE" == "darwin"* ]]; then \
