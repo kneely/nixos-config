@@ -58,7 +58,7 @@ in {
         enable = true;
         user = "bazarr";
         group = "media";
-        dataDir = "${appDataDir}/bazarr";
+        # dataDir = "${appDataDir}/bazarr";
         openFirewall = true;
       };
 
