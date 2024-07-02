@@ -2,6 +2,7 @@
 with lib;
 let 
   cfg = config.services.mediaserver;
+  appDataDir = "/storage/applications";
   dataDirBase = "/storage/media";
 in {
   options.services.mediaserver.enable =
@@ -51,6 +52,14 @@ in {
         user = "sonarr";
         group = "media";
         dataDir = "${dataDirBase}/sonarr";
+      };
+
+      bazarr = {
+        enable = true;
+        user = "bazarr";
+        group = "media";
+        dataDir = "${appDataDir}/bazarr";
+        openFirewall = true;
       };
 
       jellyseerr = {
