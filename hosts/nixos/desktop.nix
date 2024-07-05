@@ -10,7 +10,7 @@ in
     ../../modules/nixos/disk-config.nix
     ../../modules/shared
     ../../modules/shared/cachix
-    ../../modules/roles
+    ../../modules/shared/roles
     agenix.nixosModules.default
   ];
 
