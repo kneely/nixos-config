@@ -10,7 +10,7 @@ in
     ../../modules/nixos/disk-config.nix
     ../../modules/shared
     ../../modules/shared/cachix
-    ../../modules/shared/pirate
+    ../../modules/roles
     agenix.nixosModules.default
   ];
 
@@ -18,7 +18,8 @@ in
     members = [ user ];
   };
 
-  services.mediaserver.enable = true;
+  # services.mediaserver.enable = true;
+  roles.pirate.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
