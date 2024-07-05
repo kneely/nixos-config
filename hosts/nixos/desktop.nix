@@ -20,6 +20,7 @@ in
 
   # services.mediaserver.enable = true;
   roles.pirate.enable = true;
+  roles.authelia.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
