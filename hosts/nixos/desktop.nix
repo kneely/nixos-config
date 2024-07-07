@@ -267,7 +267,7 @@ in
   hardware = {
     opengl.enable = true;
     nvidia.modesetting.enable = true;
-    driSupport32Bit = true;
+    # driSupport32Bit = true;
 
     # Enable Xbox support
     # xone.enable = true;
