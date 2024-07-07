@@ -280,8 +280,8 @@ in
   # Add docker daemon
   virtualisation.docker.enable = true;
   virtualisation.docker.logDriver = "json-file";
-  virtualisation.docker.enableNvidia = true;
-  virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
+  # virtualisation.docker.enableNvidia = true;
+  # virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
 
 
   # It's me, it's you, it's everyone
