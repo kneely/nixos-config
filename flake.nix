@@ -37,6 +37,7 @@
     };
     # nixarr.url = "github:rasmus-kirk/nixarr";
     deploy-rs.url = "github:serokell/deploy-rs";
+    # nixinate.url = "github:matthewcroughan/nixinate";
   };
   outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets, deploy-rs } @inputs:
     let
@@ -84,7 +85,8 @@
     in
     {
       devShells = forAllSystems devShell;
-      apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
+      # apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps  nixinate.nixinate.x86_64-linux self;
+      # apps = nixinate.nixinate.x86_64-linux self;
 
       darwinConfigurations = nixpkgs.lib.genAttrs darwinSystems (system:
         darwin.lib.darwinSystem {
@@ -131,16 +133,17 @@
         
         # Add other hosts here in a similar manner
       };
-    #   deploy.nodes.desktop = {
-    #     hostname = "nixos";
-    #     profiles.kevin = {
-    #       user = "kevin";
-    #       remoteBuild = true;
-    #       path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.desktop;
-    #     };
-    #   };
+      deploy.nodes.desktop = {
+        hostname = "192.168.3.10";
+        profiles.kevin = {
+          user = "kevin";
+          remoteBuild = true;
+          fastConnection = true;
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.desktop;
+        };
+      };
 
-    # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }
 

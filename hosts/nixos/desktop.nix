@@ -265,7 +265,10 @@ in
 
   # Video support
   hardware = {
-    opengl.enable = true;
+    # Deprecated: use graphics.enable instead
+    # opengl.enable = true;
+    graphics.enable = true;
+    
     nvidia.modesetting.enable = true;
     # driSupport32Bit = true;
 
