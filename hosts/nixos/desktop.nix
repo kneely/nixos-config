@@ -21,6 +21,9 @@ in
   # services.mediaserver.enable = true;
   roles.pirate.enable = true;
   roles.authelia.enable = true;
+  roles.tailscale.enable = true;
+
+  nixpkgs.config.cudaSupport = true;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -36,24 +39,13 @@ in
     # initrd.kernelModules = [ "amdgpu" ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "uinput" "kvm-amd" ];
+    kernelParams = [ "module_blacklist=i915" ];
+
     supportedFilesystems = ["zfs"];
     zfs.extraPools = [ "storage" ];
+
+    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
-
-  #   fileSystems."/" =
-  #   {
-  #     device = "/dev/disk/by-uuid/c14da5f0-41c7-4aa8-b8c0-1b83db0a7a11";
-  #     fsType = "ext4";
-  #   };
-
-  # fileSystems."/boot" =
-  #   {
-  #     device = "/dev/disk/by-uuid/35E9-E5FB";
-  #     fsType = "vfat";
-  #   };
-
-  # swapDevices =
-  #   [{ device = "/dev/disk/by-uuid/82708878-d96d-4ee0-80cd-d47e6d827517"; }];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -90,13 +82,13 @@ in
   };
 
   services = {
-    tailscale = {
-      enable = true;
-      # extraDaemonFlags = [
-      #   "--ssh"
-      #   "--accept-routes"
-      # ];
-    };
+    # tailscale = {
+    #   enable = true;
+    #   # extraDaemonFlags = [
+    #   #   "--ssh"
+    #   #   "--accept-routes"
+    #   # ];
+    # };
 
     xserver = {
       enable = true;
@@ -250,22 +242,9 @@ in
 
     gvfs.enable = true; # Mount, trash, and other functionalities
     tumbler.enable = true; # Thumbnail support for images
-
-    # Emacs runs as a daemon
-    # emacs = {
-    #   enable = true;
-    #   package = pkgs.emacs-unstable;
-    # };
+    
   };
 
-  # When emacs builds from no cache, it exceeds the 90s timeout default
-  # systemd.user.services.emacs = {
-  #   serviceConfig.TimeoutStartSec = "7min";
-  # };
-
-  # Enable CUPS to print documents
-  # services.printing.enable = true;
-  # services.printing.drivers = [ pkgs.brlaser ]; # Brother printer driver
 
   # Enable sound
   sound.enable = true;
@@ -288,6 +267,7 @@ in
   hardware = {
     opengl.enable = true;
     nvidia.modesetting.enable = true;
+    driSupport32Bit = true;
 
     # Enable Xbox support
     # xone.enable = true;
@@ -300,6 +280,9 @@ in
   # Add docker daemon
   virtualisation.docker.enable = true;
   virtualisation.docker.logDriver = "json-file";
+  virtualisation.docker.enableNvidia = true;
+  virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
+
 
   # It's me, it's you, it's everyone
   users.users = {
