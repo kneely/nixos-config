@@ -21,7 +21,7 @@ in
 
     networking.firewall = {
       # Trust inbound tailnet traffic.
-      trustedInterfaces = [ catalog.tailscale.interface ];
+      trustedInterfaces = [ "tailscale0" ];
 
       # Allow tailscale through firewall.
       allowedUDPPorts = [ config.services.tailscale.port ];
