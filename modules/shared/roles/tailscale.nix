@@ -11,7 +11,7 @@ in
     # Enable tailscale daemon.
     services.tailscale = {
       enable = true;
-      interfaceName = catalog.tailscale.interface;
+      interfaceName = "tailscale0";
 
       authKeyFile = config.age.secrets.tailscale.path;
       extraUpFlags = [ "--ssh" ];
