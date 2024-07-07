@@ -1,12 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, secrets, ... }:
 with lib;
 let cfg = config.roles.tailscale;
 in
 {
   options.roles.tailscale = with types; {
     enable = mkEnableOption "Enable Tailscale daemon";
-
-    exitNode = mkEnableOption "Register as an exit node";
 
     useAuthKey = mkOption {
       type = bool;
@@ -22,10 +20,10 @@ in
       interfaceName = catalog.tailscale.interface;
 
       authKeyFile = mkIf cfg.useAuthKey config.age.secrets.tailscale.path;
-      extraUpFlags = mkIf cfg.exitNode [ "--advertise-exit-node" ];
+      extraUpFlags = [ "--ssh" ];
     };
 
-    age.secrets.tailscale.file = mkIf cfg.useAuthKey ../secrets/tailscale.age;
+    age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
 
     networking.firewall = {
       # Trust inbound tailnet traffic.
