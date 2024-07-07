@@ -5,12 +5,6 @@ in
 {
   options.roles.tailscale = with types; {
     enable = mkEnableOption "Enable Tailscale daemon";
-
-    useAuthKey = mkOption {
-      type = bool;
-      description = "Use secrets/tailscale.age for auto-join key";
-      default = true;
-    };
   };
 
   config = mkIf cfg.enable {
@@ -19,7 +13,7 @@ in
       enable = true;
       interfaceName = catalog.tailscale.interface;
 
-      authKeyFile = mkIf cfg.useAuthKey config.age.secrets.tailscale.path;
+      authKeyFile = config.age.secrets.tailscale.path;
       extraUpFlags = [ "--ssh" ];
     };
 
