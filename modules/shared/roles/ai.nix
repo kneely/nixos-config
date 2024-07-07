@@ -23,6 +23,7 @@ in
       enable = true;
       stateDir = "${appDataDir}/open-webui";
       openFirewall = true;
+      port = 8081;
       environment = {
         ANONYMIZED_TELEMETRY = "False";
         DO_NOT_TRACK = "True";
