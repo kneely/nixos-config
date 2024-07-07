@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }: {
   imports = [
+    ./ai.nix
     ./authelia.nix
     ./nfs-bind.nix
     ./pirate.nix
