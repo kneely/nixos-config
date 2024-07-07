@@ -16,7 +16,8 @@ in
       acceleration = "cuda";
       home = "${appDataDir}/ollama";
       models = "${appDataDir}/ollama/models";
-      loadModels = ["llama3" "gemma2" "codegemma" "llama2-uncensored" "phi3" "deepseek-coder-v2" "qwen2"];
+      # loadModels = ["llama3" "gemma2" "codegemma" "llama2-uncensored" "phi3" "deepseek-coder-v2" "qwen2"];
+      loadModels = ["phi3" ];
     };
 
     services.open-webui = {
