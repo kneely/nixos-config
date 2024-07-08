@@ -3,6 +3,7 @@ with lib;
 let 
 cfg = config.roles.ai;
 appDataDir = "/storage/applications";
+dockerDataDir = "/storage/docker";
 in
 {
   options.roles.ai = with types; {
@@ -12,16 +13,22 @@ in
   config = mkIf cfg.enable {
 
     virtualisation.oci-containers.containers = {
-      cuda = {
-        image = "nvidia/cuda:11.5.2-base-ubuntu20.04";
-        # ports = [ "9091:9091" ];
-        # volumes = [ "/storage/docker/authelia:/config" ];
+      # docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+      ollama = {
+        image = "ollama/ollama:latest";
+        ports = [ "11434:11434" ];
+        volumes = [ "${dockerDataDir}/authelia:/config" ];
         extraOptions = [ "--gpus=all" ];
-        cmd = [
-          "nvidia-smi"
-        ];
+      };
+      # docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda
+      open-webui = {
+        image = "ghcr.io/open-webui/open-webui:cuda";
+        ports = [ "8081:8080" ];
+        volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
+        extraOptions = [ "--gpus=all" ];
       };
     };
+
 
     # services.ollama = {
     #   enable = true;
