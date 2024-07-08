@@ -22,7 +22,7 @@ in
   roles.pirate.enable = true;
   roles.authelia.enable = true;
   roles.tailscale.enable = true;
-  roles.ai.enable = true;
+  # roles.ai.enable = true;
 
   nixpkgs.config.cudaSupport = true;
   systemd.enableUnifiedCgroupHierarchy = false;

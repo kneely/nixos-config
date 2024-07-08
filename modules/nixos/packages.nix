@@ -3,7 +3,7 @@
 with pkgs;
 let shared-packages = import ../shared/packages.nix { inherit pkgs; }; in
 shared-packages ++ [
-
+  gpt4all-cuda
   tailscale
 
   # Security and authentication
