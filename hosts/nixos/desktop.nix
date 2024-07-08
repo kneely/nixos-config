@@ -286,8 +286,10 @@ in
   virtualisation.docker.enable = true;
   virtualisation.docker.logDriver = "json-file";
   # virtualisation.docker.enableNvidia = true;
-  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+  # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
   # virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
+
+  hardware.nvidia-container-toolkit.enable = true;
 
 
   # It's me, it's you, it's everyone
