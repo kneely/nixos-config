@@ -288,11 +288,26 @@ in
 
 
   # Add docker daemon
-  virtualisation.docker.enable = true;
-  virtualisation.docker.logDriver = "json-file";
-  virtualisation.docker.enableNvidia = true;
-  # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
-  virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
+  # virtualisation.docker.enable = true;
+  # virtualisation.docker.logDriver = "json-file";
+  # virtualisation.docker.enableNvidia = true;
+  # # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+  # virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
+
+    virtualisation = {
+    containers = {
+      enable = true;
+      cdi.dynamic.nvidia.enable = true;
+    };
+    docker = {
+      enable = true;
+      # CDI is feature-gated and only available from Docker 25 and onwards
+      package = pkgs.docker_25;
+      daemon.settings.features.cdi = true;
+      storageDriver = "zfs";
+    };
+    oci-containers.backend = "docker";
+  };
 
   hardware.nvidia-container-toolkit.enable = true;
 
