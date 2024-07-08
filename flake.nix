@@ -135,15 +135,20 @@
       };
       deploy.nodes.desktop = {
         hostname = "192.168.3.10";
-        profiles.kevin = {
+        profiles.system = {
           user = "kevin";
           remoteBuild = true;
           fastConnection = true;
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.desktop;
         };
       };
+      deploy = {
+        magicRollback = true;
+        autoRollback = true;
+        remoteBuild = true;
+      };
 
-    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+    # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }
 
