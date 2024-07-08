@@ -17,7 +17,7 @@ in
       ollama = {
         image = "ollama/ollama:latest";
         ports = [ "11434:11434" ];
-        volumes = [ "${dockerDataDir}/authelia:/config" ];
+        volumes = [ "${dockerDataDir}/ollama:/root/.ollama" ];
         extraOptions = [ "--gpus=all" ];
       };
       # docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda
