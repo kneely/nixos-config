@@ -268,8 +268,8 @@ in
   # Video support
   hardware = {
     # Deprecated: use graphics.enable instead
-    # opengl.enable = true;
-    graphics.enable = true;
+    opengl.enable = true;
+    # graphics.enable = true;
     
     # nvidia.modesetting.enable = true;
     nvidia = {
