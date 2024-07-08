@@ -11,7 +11,17 @@ in
 
   config = mkIf cfg.enable {
 
-    # pkgs.gpt4all-cuda
+    virtualisation.oci-containers.containers = {
+      cuda = {
+        image = "nvidia/cuda:11.5.2-base-ubuntu20.04";
+        # ports = [ "9091:9091" ];
+        # volumes = [ "/storage/docker/authelia:/config" ];
+        extraOptions = [ "--gpus=all" ];
+        cmd = [
+          "nvidia-smi"
+        ];
+      };
+    };
 
     # services.ollama = {
     #   enable = true;
