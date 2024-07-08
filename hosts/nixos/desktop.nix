@@ -272,7 +272,7 @@ in
     graphics.enable = true;
     
     # nvidia.modesetting.enable = true;
-    hardware.nvidia = {
+    nvidia = {
       modesetting.enable = true;
       open = false;
       nvidiaSettings = true;
