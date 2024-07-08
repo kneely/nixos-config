@@ -46,7 +46,7 @@ in
     supportedFilesystems = ["zfs"];
     zfs.extraPools = [ "storage" ];
 
-    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+    extraModulePackages = [ config.boot.kernelPackages.nvidiaPackages.production ];
   };
 
   # Set your time zone.
