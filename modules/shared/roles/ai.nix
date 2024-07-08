@@ -18,14 +18,14 @@ in
         image = "ollama/ollama:latest";
         ports = [ "11434:11434" ];
         volumes = [ "${dockerDataDir}/ollama:/root/.ollama" ];
-        extraOptions = [ "--gpus=all" ];
+        extraOptions = [ "--gpus=all" "--device nvidia.com/gpu=all" ];
       };
       # docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda
       open-webui = {
         image = "ghcr.io/open-webui/open-webui:cuda";
         ports = [ "8081:8080" ];
         volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
-        extraOptions = [ "--gpus=all" ];
+        extraOptions = [ "--gpus=all" "--device nvidia.com/gpu=all" ];
       };
     };
 
