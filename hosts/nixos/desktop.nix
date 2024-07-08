@@ -271,8 +271,13 @@ in
     # opengl.enable = true;
     graphics.enable = true;
     
-    nvidia.modesetting.enable = true;
-    # driSupport32Bit = true;
+    # nvidia.modesetting.enable = true;
+    hardware.nvidia = {
+      modesetting.enable = true;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.production;
+    };
 
     # Enable Xbox support
     # xone.enable = true;
