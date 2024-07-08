@@ -11,6 +11,10 @@ in
 
   config = mkIf cfg.enable {
 
+    packages = with pkgs; [
+      gpt4all-cuda
+    ];
+
     # services.ollama = {
     #   enable = true;
     #   acceleration = "cuda";
