@@ -33,7 +33,7 @@ in
         image = "ghcr.io/open-webui/open-webui:ollama";
         ports = [ "8081:8080" ];
         volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" "${dockerDataDir}/ollama:/root/.ollama" ];
-        extraOptions = [ "--gpus=all" ''--device nvidia.com/gpu=all'' ];
+        extraOptions = [ "--gpus=all" "--device nvidia.com/gpu\"=\"all" ];
       };
     };
 
