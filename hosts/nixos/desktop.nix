@@ -294,9 +294,9 @@ in
   # # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
   # virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
 
-    virtualisation = {
+  virtualisation = {
     containers = {
-      enable = true;
+      # enable = true;
       cdi.dynamic.nvidia.enable = true;
     };
     docker = {
