@@ -299,15 +299,28 @@ in
       # enable = true;
       # cdi.dynamic.nvidia.enable = true;
     };
-    docker = {
+    # docker = {
+    #   enable = true;
+    #   # CDI is feature-gated and only available from Docker 25 and onwards
+    #   package = pkgs.docker_25;
+    #   daemon.settings.features.cdi = true;
+    #   # storageDriver = "zfs";
+    #   logDriver = "json-file";
+    # };
+    # oci-containers.backend = "docker";
+    
+    oci-containers.backend = "podman";
+    podman = {
       enable = true;
-      # CDI is feature-gated and only available from Docker 25 and onwards
-      package = pkgs.docker_25;
-      daemon.settings.features.cdi = true;
-      # storageDriver = "zfs";
-      logDriver = "json-file";
+      
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+      # Make the Podman socket available in place of the Docker socket, so
+      #  Docker tools can find the Podman socket.
+      dockerSocket.enable = false;
+
+      enableNvidia = true;
     };
-    oci-containers.backend = "docker";
   };
 
   hardware.nvidia-container-toolkit.enable = true;
