@@ -31,7 +31,7 @@ in
       # docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda
       open-webui = {
         image = "ghcr.io/open-webui/open-webui:cuda";
-        ports = [ "8081:8080" ];
+        ports = [ "3000:3000" ];
         volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
       };
 
