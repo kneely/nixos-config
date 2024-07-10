@@ -20,7 +20,7 @@ in
 
   # services.mediaserver.enable = true;
   roles.pirate.enable = true;
-  roles.authelia.enable = true;
+  # roles.authelia.enable = true;
   roles.tailscale.enable = true;
   roles.ai.enable = true;
 
