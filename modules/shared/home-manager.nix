@@ -236,16 +236,16 @@ let name = "Kevin Neely";
         };
       };
 
-      font = {
-        normal = {
-          family = "MesloLGS NF";
-          style = "Regular";
-        };
-        size = lib.mkMerge [
-          (lib.mkIf pkgs.stdenv.hostPlatform.isLinux 10)
-          (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin 14)
-        ];
-      };
+      # font = {
+      #   normal = {
+      #     family = "MesloLGS NF";
+      #     style = "Regular";
+      #   };
+      #   size = lib.mkMerge [
+      #     (lib.mkIf pkgs.stdenv.hostPlatform.isLinux 10)
+      #     (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin 14)
+      #   ];
+      # };
 
       dynamic_padding = true;
       decorations = "full";

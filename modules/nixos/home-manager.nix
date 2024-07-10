@@ -87,7 +87,7 @@ in
           frame_width = 0;
           sort = "no";
           idle_threshold = 120;
-          font = "Noto Sans";
+          # font = "Noto Sans";
           line_height = 4;
           markup = "full";
           format = "<b>%s</b>\n%b";
