@@ -14,6 +14,7 @@ update:
   nix flake update
 
 fu:
+  git pull origin testing
   nix flake update
   sudo nixos-rebuild switch --flake .#desktop
 
