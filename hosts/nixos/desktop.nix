@@ -322,8 +322,16 @@ in
       enableNvidia = true;
 
       defaultNetwork.settings.dns_enabled = true;
+
+      autoPrune = {
+        enable = true; # Periodically prune Podman Images not in use.
+        dates = "weekly";
+        flags = [ "--all" ];
+      };
     };
   };
+
+  networking.firewall.interfaces."podman+".allowedUDPPorts = [53 5353];
 
   hardware.nvidia-container-toolkit.enable = true;
 
