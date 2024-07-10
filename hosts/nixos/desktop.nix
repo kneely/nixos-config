@@ -320,6 +320,8 @@ in
       dockerSocket.enable = false;
 
       enableNvidia = true;
+
+      defaultNetwork.settings.dns_enabled = true;
     };
   };
 
