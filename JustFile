@@ -13,6 +13,10 @@ default:
 update:
   nix flake update
 
+fu:
+  nix flake update
+  sudo nixos-rebuild switch --flake .#desktop
+
 # remove nix system gernerations older than 7 days
 clean:
   sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 7d
