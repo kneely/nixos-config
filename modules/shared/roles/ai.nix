@@ -29,49 +29,19 @@ in
       };
 
       # docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda
-      open-webui = {
-        image = "ghcr.io/open-webui/open-webui:cuda";
-        ports = [ "3000:8080" ];
-        volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
-        extraOptions = [ "--gpus=all"  ];
-        environment = {
-          OLLAMA_BASE_URL = "http://ollama:11434";
-          USE_CUDA_DOCKER = "true";
-          NVIDIA_VISIBLE_DEVICES = "all";
-          NVIDIA_DRIVER_CAPABILITIES = "all";
+      # open-webui = {
+      #   image = "ghcr.io/open-webui/open-webui:cuda";
+      #   ports = [ "3000:8080" ];
+      #   volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
+      #   extraOptions = [ "--gpus=all"  ];
+      #   environment = {
+      #     OLLAMA_BASE_URL = "http://ollama:11434";
+      #     USE_CUDA_DOCKER = "true";
+      #     NVIDIA_VISIBLE_DEVICES = "all";
+      #     NVIDIA_DRIVER_CAPABILITIES = "all";
 
-        };
-      };
-
-      # docker run -d -p 3000:8080 --gpus=all -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama
-      # open-webui-ollama = {
-      #   image = "ghcr.io/open-webui/open-webui:ollama";
-      #   ports = [ "8081:8080" ];
-      #   volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" "${dockerDataDir}/ollama:/root/.ollama" ];
-      #   extraOptions = [ "--gpus=all" "--device=nvidia.com/gpu=all" ];
+      #   };
       # };
     };
-
-
-    # services.ollama = {
-    #   enable = true;
-    #   acceleration = "cuda";
-    #   home = "${appDataDir}/ollama";
-    #   models = "${appDataDir}/ollama/models";
-    #   # loadModels = ["llama3" "gemma2" "codegemma" "llama2-uncensored" "phi3" "deepseek-coder-v2" "qwen2"];
-    #   loadModels = ["phi3" ];
-    # };
-
-    # services.open-webui = {
-    #   enable = true;
-    #   stateDir = "${appDataDir}/open-webui";
-    #   openFirewall = true;
-    #   port = 8081;
-    #   environment = {
-    #     ANONYMIZED_TELEMETRY = "False";
-    #     DO_NOT_TRACK = "True";
-    #     SCARF_NO_ANALYTICS = "True";
-    #   };
-    # };
   };
 }
