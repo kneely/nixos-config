@@ -37,7 +37,7 @@ in
         volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
         extraOptions = [ "--gpus=all"  ];
         environment = {
-          OLLAMA_BASE_URL = "http://localhost:11434";
+          OLLAMA_BASE_URL = "http://ollama:11434";
           USE_CUDA_DOCKER = "true";
           NVIDIA_VISIBLE_DEVICES = "all";
           NVIDIA_DRIVER_CAPABILITIES = "all";
