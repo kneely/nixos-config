@@ -10,13 +10,6 @@ let
   tailnetName = "tail103fe.ts.net";
   dockerDataDir = "/storage/docker";
 
-  key = builtins.readFile "${secrets}/tailscale-auth-key.age";
-
-  # Generate the Tailscale auth environment file
-  tailscaleAuthEnvFile = pkgs.writeText "tailscale-auth-env" ''
-    TS_AUTHKEY=${key}
-  '';
-
   containerOpts = { name, config, ... }: 
     let
       # this allows container modules to name their TS submodule "TS${containerName}" so it won't overlap with the main container
@@ -100,6 +93,14 @@ let
           "${cfg.TShostname}.${tailnetName}.ts.net:443" = cfg.enableFunnel;
       };
     };
+
+    key = builtins.readFile config.age.secrets.tailscale.path;
+
+    # Generate the Tailscale auth environment file
+    tailscaleAuthEnvFile = pkgs.writeText "tailscale-auth-env" ''
+      TS_AUTHKEY=${key}
+    '';
+
   in
   {
       image = "${IMAGE}:${cfg.imageVersion}";
