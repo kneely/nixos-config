@@ -10,6 +10,11 @@ let
   tailnetName = "tail103fe.ts.net";
   dockerDataDir = "/storage/docker";
 
+  # Generate the Tailscale auth environment file
+  tailscaleAuthEnvFile = pkgs.writeText ''
+    TS_AUTHKEY=${age.secrets.tailscale.file}
+  '';
+
   containerOpts = { name, config, ... }: 
     let
       # this allows container modules to name their TS submodule "TS${containerName}" so it won't overlap with the main container
@@ -113,7 +118,8 @@ let
       })
       ];
       environmentFiles = [
-        config.age.secrets.tailscale.path
+        # config.age.secrets.tailscale.path
+        tailscaleAuthEnvFile
       ];
       volumes = [
         "${cfg.volumeLocation}/data-lib:/var/lib"
