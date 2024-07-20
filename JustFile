@@ -6,6 +6,9 @@
 #
 ############################################################################
 
+# Set default environment variable
+export NIXPKGS_ALLOW_UNFREE := "1"
+
 default:
   just --list
 
@@ -30,6 +33,11 @@ gc:
 test:
   git pull origin testing
   sudo nixos-rebuild switch --flake .#desktop
+
+bsMac:
+  nix --extra-experimental-features 'nix-command flakes' build .#darwinConfigurations.aarch64-darwin.system
+  ./result/sw/bin/darwin-rebuild switch --flake .#aarch64-darwin
+  unlink ./result
 
 # update nixos or nix-darwin from github
 rb:
