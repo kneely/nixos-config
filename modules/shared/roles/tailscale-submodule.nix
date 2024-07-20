@@ -6,15 +6,9 @@ let
   NAME = "tailscale";
   IMAGE = "ghcr.io/tailscale/tailscale";
 
-  cfg = config.roles.tsfunnel;
   inherit (config.networking) hostName;
   tailnetName = "tail103fe.ts.net";
   dockerDataDir = "/storage/docker";
-
-  #   cfg = config.yomaq.pods.tailscaled;
-  # inherit (config.networking) hostName;
-  # inherit (config.yomaq.impermanence) dontBackup;
-  # inherit (config.yomaq.tailscale) tailnetName;
 
   containerOpts = { name, config, ... }: 
     let
@@ -86,6 +80,7 @@ let
       };
     };
   };
+
   # Helper function to create a container configuration from a submodule
   mkContainer = name: cfg: 
   let
@@ -107,7 +102,6 @@ let
       {
           "TS_HOSTNAME" = cfg.TShostname;
           "TS_STATE_DIR" = "/var/lib/tailscale";
-          # "TS_USERSPACE" = "false";
           "TS_EXTRA_ARGS" = "--advertise-tags=" + formatTags + " " + cfg.TSargs;
       }
       (lib.mkIf (cfg.TSserve != {}) {
@@ -115,14 +109,11 @@ let
           "TS_USERSPACE" = "true";
       })
       (lib.mkIf (cfg.TSserve == {}) {
-        # https://github.com/tailscale/tailscale/issues/11372
            "TS_USERSPACE" = "false";
       })
       ];
       environmentFiles = [
-        # need to set "TS_AUTHKEY=key" in agenix and import here
         config.age.secrets.tailscale.path
-        # "TS_ACCEPT_DNS" = "true";
       ];
       volumes = [
         "${cfg.volumeLocation}/data-lib:/var/lib"
@@ -137,14 +128,14 @@ let
         "--cap-add=net_admin"
         "--cap-add=sys_module"
       ];
-      # user = "4000:4000";
   };
+
   mkTmpfilesRules = name: cfg: [
     "d ${cfg.volumeLocation}/data-lib 0755 root root"
   ];
 in
 {
-  options.tsfunnel = {
+  options.roles.tsfunnel = {
     tailscaled = mkOption {
       default = {};
       type = with types; attrsOf (submodule containerOpts);
@@ -153,18 +144,12 @@ in
         Additional tailscale containers to pair with container services to expose on the tailnet.
       '';
     };
-    # tailscaleAgenixKey = mkOption {
-    #   type = types.path;
-    #   default = (inputs.self + /secrets/tailscaleOAuthEnvFile.age);
-    #   description = ''
-    #     path to agenix secret file
-    #   '';
-    # };
   };
-  config = mkIf (cfg != {}) {
+
+  config = mkIf (config.roles.tsfunnel.tailscaled != {}) {
     age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
 
-    systemd.tmpfiles.rules = lib.flatten ( lib.mapAttrsToList (name: cfg: mkTmpfilesRules name cfg) config.roles.tsfunnel);
-    virtualisation.oci-containers.containers = lib.mapAttrs mkContainer config.roles.tsfunnel;
+    systemd.tmpfiles.rules = lib.flatten (lib.mapAttrsToList (name: cfg: mkTmpfilesRules name cfg) config.roles.tsfunnel.tailscaled);
+    virtualisation.oci-containers.containers = lib.mapAttrs mkContainer config.roles.tsfunnel.tailscaled;
   };
 }
