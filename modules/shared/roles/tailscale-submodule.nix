@@ -6,7 +6,7 @@ let
   NAME = "tailscale";
   IMAGE = "ghcr.io/tailscale/tailscale";
 
-  cfg = config.roles.tailscale-funnel;
+  cfg = config.roles.tsfunnel;
   inherit (config.networking) hostName;
   tailnetName = "tail103fe.ts.net";
   dockerDataDir = "/storage/docker";
@@ -144,7 +144,7 @@ let
   ];
 in
 {
-  options.tailscale-funnel = {
+  options.tsfunnel = {
     tailscaled = mkOption {
       default = {};
       type = with types; attrsOf (submodule containerOpts);
@@ -164,7 +164,7 @@ in
   config = mkIf (cfg != {}) {
     age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
 
-    systemd.tmpfiles.rules = lib.flatten ( lib.mapAttrsToList (name: cfg: mkTmpfilesRules name cfg) config.roles.tailscale-funnel);
-    virtualisation.oci-containers.containers = lib.mapAttrs mkContainer config.roles.tailscale-funnel;
+    systemd.tmpfiles.rules = lib.flatten ( lib.mapAttrsToList (name: cfg: mkTmpfilesRules name cfg) config.roles.tsfunnel);
+    virtualisation.oci-containers.containers = lib.mapAttrs mkContainer config.roles.tsfunnel;
   };
 }
