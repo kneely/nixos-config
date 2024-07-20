@@ -39,7 +39,7 @@ in
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
     # Uncomment for AMD GPU
     # initrd.kernelModules = [ "amdgpu" ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages;
     kernelModules = [ "uinput" "kvm-amd" ];
     kernelParams = [ "module_blacklist=i915" ];
 
@@ -84,14 +84,6 @@ in
   };
 
   services = {
-    # tailscale = {
-    #   enable = true;
-    #   # extraDaemonFlags = [
-    #   #   "--ssh"
-    #   #   "--accept-routes"
-    #   # ];
-    # };
-
     xserver = {
       enable = true;
 
