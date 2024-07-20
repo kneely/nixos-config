@@ -111,7 +111,7 @@ let
           "TS_HOSTNAME" = cfg.TShostname;
           "TS_STATE_DIR" = "/var/lib/tailscale";
           "TS_EXTRA_ARGS" = "--advertise-tags=" + formatTags + " " + cfg.TSargs;
-          "TS_AUTHKEY" = builtins.readFile config.age.secrets.tailscale.path;
+          # "TS_AUTHKEY" = config.age.secrets.tailscale.path;
       }
       (lib.mkIf (cfg.TSserve != {}) {
           "TS_SERVE_CONFIG" = "config/tailscaleCfg.json";
@@ -121,10 +121,10 @@ let
            "TS_USERSPACE" = "false";
       })
       ];
-      # environmentFiles = [
-      #   config.age.secrets.tailscale.path
-      #   # tailscaleAuthEnvFile
-      # ];
+      environmentFiles = [
+        config.age.secrets.tailscale.path
+        # tailscaleAuthEnvFile
+      ];
       volumes = [
         "${cfg.volumeLocation}/data-lib:/var/lib"
         "/dev/net/tun:/dev/net/tun"
@@ -157,7 +157,7 @@ in
   };
 
   config = mkIf (config.roles.tsfunnel.tailscaled != {}) {
-    age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
+    age.secrets.tailscale.file = "${secrets}/ts-auth-env-variable.age";
 
     systemd.tmpfiles.rules = lib.flatten (lib.mapAttrsToList (name: cfg: mkTmpfilesRules name cfg) config.roles.tsfunnel.tailscaled);
     virtualisation.oci-containers.containers = lib.mapAttrs mkContainer config.roles.tsfunnel.tailscaled;
