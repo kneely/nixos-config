@@ -6,10 +6,15 @@ let
   NAME = "tailscale";
   IMAGE = "ghcr.io/tailscale/tailscale";
 
-  cfg = config.yomaq.pods.tailscaled;
+  cfg = config.roles.tailscaleServe;
   inherit (config.networking) hostName;
-  inherit (config.yomaq.impermanence) dontBackup;
-  inherit (config.yomaq.tailscale) tailnetName;
+  tailnetName = "tail103fe.ts.net";
+  dockerDataDir = "/storage/docker";
+
+  #   cfg = config.yomaq.pods.tailscaled;
+  # inherit (config.networking) hostName;
+  # inherit (config.yomaq.impermanence) dontBackup;
+  # inherit (config.yomaq.tailscale) tailnetName;
 
   containerOpts = { name, config, ... }: 
     let
@@ -29,7 +34,7 @@ let
       };
       volumeLocation = mkOption {
         type = types.str;
-        default = "${dontBackup}/containers/tailscale/${name}";
+        default = "${dockerDataDir}/tailscale/${name}";
         description = ''
           path to store container volumes
         '';
@@ -74,7 +79,7 @@ let
       };
      tags = mkOption {
         type = lib.types.listOf lib.types.str;
-        default = ["tag:lockdown"];
+        default = ["tag:services"];
         description = ''
           list of tags owned by "tag:container" to assign to the container
         '';
@@ -116,7 +121,7 @@ let
       ];
       environmentFiles = [
         # need to set "TS_AUTHKEY=key" in agenix and import here
-        config.age.secrets."tailscaleOAuthEnvFile".path
+        config.age.secrets.tailscale.path
         # "TS_ACCEPT_DNS" = "true";
       ];
       volumes = [
@@ -139,7 +144,7 @@ let
   ];
 in
 {
-  options.yomaq.pods = {
+  options.tailscaleServe = {
     tailscaled = mkOption {
       default = {};
       type = with types; attrsOf (submodule containerOpts);
@@ -148,18 +153,18 @@ in
         Additional tailscale containers to pair with container services to expose on the tailnet.
       '';
     };
-    tailscaleAgenixKey = mkOption {
-      type = types.path;
-      default = (inputs.self + /secrets/tailscaleOAuthEnvFile.age);
-      description = ''
-        path to agenix secret file
-      '';
-    };
+    # tailscaleAgenixKey = mkOption {
+    #   type = types.path;
+    #   default = (inputs.self + /secrets/tailscaleOAuthEnvFile.age);
+    #   description = ''
+    #     path to agenix secret file
+    #   '';
+    # };
   };
   config = mkIf (cfg != {}) {
-    age.secrets."tailscaleOAuthEnvFile".file = config.yomaq.pods.tailscaleAgenixKey;
+    age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
 
-    systemd.tmpfiles.rules = lib.flatten ( lib.mapAttrsToList (name: cfg: mkTmpfilesRules name cfg) config.yomaq.pods.tailscaled);
-    virtualisation.oci-containers.containers = lib.mapAttrs mkContainer config.yomaq.pods.tailscaled;
+    systemd.tmpfiles.rules = lib.flatten ( lib.mapAttrsToList (name: cfg: mkTmpfilesRules name cfg) config.roles.tailscaleServe);
+    virtualisation.oci-containers.containers = lib.mapAttrs mkContainer config.roles.tailscaleServe;
   };
 }
