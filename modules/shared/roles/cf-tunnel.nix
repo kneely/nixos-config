@@ -8,7 +8,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.cf-tunnel.file = "${secrets}/cloudflare-tunnel.age";
+    age.secrets.cloudflare-tunnel.file = "${secrets}/cloudflare-tunnel.age";
     users.groups.cloudflared = { };
 
     users.users.cloudflared = {
@@ -22,7 +22,7 @@ in
       user = "cloudflared";
       tunnels = {
         "00000000-0000-0000-0000-000000000000" = {
-          credentialsFile = config.age.secrets.cf-tunnel.path;
+          credentialsFile = config.age.secrets.cloudflare-tunnel.path;
           default = "http_status:404";
           ingress = {
             "chat.neelyinno.com" = {
