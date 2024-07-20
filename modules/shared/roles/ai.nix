@@ -51,7 +51,7 @@ in
         enable = true;
         imageVersion = "latest";
         TSserve = {
-          "/" = "http://open-webui:8080";
+          "/" = "http://open-webui:3000";
         };
         enableFunnel = true;
         tags = ["tag:services"];
