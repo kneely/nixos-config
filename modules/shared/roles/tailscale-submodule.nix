@@ -122,7 +122,7 @@ let
       })
       ];
       environmentFiles = [
-        config.age.secrets.tailscale.path
+        config.age.secrets.tailscale-env.path
         # tailscaleAuthEnvFile
       ];
       volumes = [
@@ -157,7 +157,7 @@ in
   };
 
   config = mkIf (config.roles.tsfunnel.tailscaled != {}) {
-    age.secrets.tailscale.file = "${secrets}/ts-auth-env-variable.age";
+    age.secrets.tailscale-env.file = "${secrets}/ts-auth-env-variable.age";
 
     systemd.tmpfiles.rules = lib.flatten (lib.mapAttrsToList (name: cfg: mkTmpfilesRules name cfg) config.roles.tsfunnel.tailscaled);
     virtualisation.oci-containers.containers = lib.mapAttrs mkContainer config.roles.tsfunnel.tailscaled;
