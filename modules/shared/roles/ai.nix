@@ -47,7 +47,7 @@ in
     };
 
     roles.tsfunnel.tailscaled = {
-      open-webui = {
+      TSopen-webui = {
         enable = true;
         imageVersion = "latest";
         TSserve = {
