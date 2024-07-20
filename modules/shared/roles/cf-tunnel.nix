@@ -18,7 +18,7 @@ in
 
     services.cloudflared = {
       enable = true;
-      group = "cloudflare";
+      group = "cloudflared";
       user = "cloudflared";
       tunnels = {
         "00000000-0000-0000-0000-000000000000" = {
