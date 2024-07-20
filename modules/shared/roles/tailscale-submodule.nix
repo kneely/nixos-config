@@ -11,7 +11,7 @@ let
   dockerDataDir = "/storage/docker";
 
   # Generate the Tailscale auth environment file
-  tailscaleAuthEnvFile = pkgs.writeText ''
+    tailscaleAuthEnvFile = pkgs.writeText "tailscale-auth-env-${name}" ''
     TS_AUTHKEY=${age.secrets.tailscale.file}
   '';
 
