@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, secrets, ... }:
 with lib;
 let cfg = config.roles.cf-tunnel;
 in
