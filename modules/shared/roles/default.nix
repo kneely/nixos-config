@@ -7,5 +7,6 @@
     ./tailscale.nix
     ./template.nix
     ./traefik.nix
+    ./cf-tunnel.nix
   ];
 }
