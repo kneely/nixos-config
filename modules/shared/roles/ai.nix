@@ -45,5 +45,17 @@ in
         };
       };
     };
+
+    roles.tsfunnel.tailscaled = {
+      open-webui = {
+        enable = true;
+        imageVersion = "latest";
+        TSserve = {
+          "/" = "http://open-webui:8080";
+        };
+        enableFunnel = true;
+        tags = ["tag:ai" "tag:webui"];
+      };
+    };
   };
 }
