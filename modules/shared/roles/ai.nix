@@ -54,7 +54,7 @@ in
           "/" = "http://open-webui:8080";
         };
         enableFunnel = true;
-        tags = ["tag:ai" "tag:webui"];
+        tags = ["tag:services"];
       };
     };
   };
