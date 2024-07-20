@@ -94,12 +94,12 @@ let
       };
     };
 
-    key = builtins.readFile config.age.secrets.tailscale.path;
+    # key = builtins.readFile config.age.secrets.tailscale.path;
 
-    # Generate the Tailscale auth environment file
-    tailscaleAuthEnvFile = pkgs.writeText "tailscale-auth-env" ''
-      TS_AUTHKEY=${key}
-    '';
+    # # Generate the Tailscale auth environment file
+    # tailscaleAuthEnvFile = pkgs.writeText "tailscale-auth-env" ''
+    #   TS_AUTHKEY=${key}
+    # '';
 
   in
   {
@@ -111,6 +111,7 @@ let
           "TS_HOSTNAME" = cfg.TShostname;
           "TS_STATE_DIR" = "/var/lib/tailscale";
           "TS_EXTRA_ARGS" = "--advertise-tags=" + formatTags + " " + cfg.TSargs;
+          "TS_AUTHKEY" = config.age.secrets.tailscale.path;
       }
       (lib.mkIf (cfg.TSserve != {}) {
           "TS_SERVE_CONFIG" = "config/tailscaleCfg.json";
@@ -120,10 +121,10 @@ let
            "TS_USERSPACE" = "false";
       })
       ];
-      environmentFiles = [
-        # config.age.secrets.tailscale.path
-        tailscaleAuthEnvFile
-      ];
+      # environmentFiles = [
+      #   # config.age.secrets.tailscale.path
+      #   tailscaleAuthEnvFile
+      # ];
       volumes = [
         "${cfg.volumeLocation}/data-lib:/var/lib"
         "/dev/net/tun:/dev/net/tun"
