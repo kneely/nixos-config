@@ -8,6 +8,5 @@
     ./template.nix
     ./traefik.nix
     ./cf-tunnel.nix
-    ./yabai.nix
   ];
 }
