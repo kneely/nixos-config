@@ -8,7 +8,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.cloudflare-tunnel.file = "${secrets}/cloudflare-tunnel.age";
+    # age.secrets.nginx-htpasswd = {
+    #   file = ../secrets/nginx.htpasswd.age;
+    #   mode = "770";
+    #   owner = "nginx";
+    #   group = "nginx";
+    # };
+    # age.secrets.cloudflare-tunnel.file = "${secrets}/cloudflare-tunnel.age";
+    age.secrets.cloudflare-tunnel = {
+      file = "${secrets}/cloudflare-tunnel.age";
+      mode = "770";
+      owner = "cloudflared";
+      group = "cloudflared";
+    };
+    
     users.groups.cloudflared = { };
 
     users.users.cloudflared = {
