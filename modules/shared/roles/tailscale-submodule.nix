@@ -12,7 +12,7 @@ let
 
   # Generate the Tailscale auth environment file
     tailscaleAuthEnvFile = pkgs.writeText "tailscale-auth-env" ''
-    TS_AUTHKEY=${age.secrets.tailscale.file}
+    TS_AUTHKEY=${secrets}/tailscale-auth-key.age
   '';
 
   containerOpts = { name, config, ... }: 
