@@ -111,7 +111,8 @@ let
           "TS_HOSTNAME" = cfg.TShostname;
           "TS_STATE_DIR" = "/var/lib/tailscale";
           "TS_EXTRA_ARGS" = "--advertise-tags=" + formatTags + " " + cfg.TSargs;
-          "TS_AUTHKEY" = config.age.secrets.tailscale.path;
+          # "TS_AUTHKEY" = config.age.secrets.tailscale.path;
+          "TS_AUTHKEY" = "file:${config.age.secrets.tailscale.path}";
       }
       (lib.mkIf (cfg.TSserve != {}) {
           "TS_SERVE_CONFIG" = "config/tailscaleCfg.json";
