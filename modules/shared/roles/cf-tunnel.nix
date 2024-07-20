@@ -16,7 +16,7 @@ in
     # };
     # age.secrets.cloudflare-tunnel.file = "${secrets}/cloudflare-tunnel.age";
     age.secrets.cloudflare-tunnel = {
-      file = "${secrets}/cloudflare-tunnel.age";
+      file = "${secrets}/cloudflare-tunnel-config.age";
       mode = "770";
       owner = "cloudflared";
       group = "cloudflared";
@@ -34,7 +34,7 @@ in
       group = "cloudflared";
       user = "cloudflared";
       tunnels = {
-        "00000000-0000-0000-0000-000000000000" = {
+        "7e158130-fbe1-4af7-8fc9-353fb116ba2b" = {
           credentialsFile = config.age.secrets.cloudflare-tunnel.path;
           default = "http_status:404";
           ingress = {
