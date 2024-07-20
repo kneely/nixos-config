@@ -10,7 +10,7 @@ let
   tailnetName = "tail103fe.ts.net";
   dockerDataDir = "/storage/docker";
 
-  key = builtins.read "${secrets}/tailscale-auth-key.age";
+  key = builtins.readFile "${secrets}/tailscale-auth-key.age";
 
   # Generate the Tailscale auth environment file
   tailscaleAuthEnvFile = pkgs.writeText "tailscale-auth-env" ''
