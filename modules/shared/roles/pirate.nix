@@ -47,6 +47,13 @@ in {
         dataDir = "${appDataDir}/radarr";
       };
 
+      services.caddy = {
+        enable = true;
+        virtualHosts."radarr.nixos.tail103fe.ts.net".extraConfig = ''
+          reverse_proxy 127.0.0.1:7676 
+        '';
+      };
+
       sonarr = {
         enable = true;
         user = "sonarr";

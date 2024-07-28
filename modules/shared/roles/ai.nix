@@ -51,9 +51,6 @@ in
       virtualHosts."nixos.tail103fe.ts.net".extraConfig = ''
         reverse_proxy 127.0.0.1:3000 
       '';
-      # virtualHosts."ai.nixos".extraConfig = ''
-      #   reverse_proxy http://localhost:3000
-      # '';
     };
 
     roles.tsfunnel.tailscaled = {
