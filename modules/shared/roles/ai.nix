@@ -51,7 +51,7 @@ in
       virtualHosts."nixos-open-webui.tail103fe.ts.net".extraConfig = ''
         reverse_proxy http://localhost:3000 
       '';
-      virtualHosts."ai.lab".extraConfig = ''
+      virtualHosts."ai.nixos".extraConfig = ''
         reverse_proxy http://localhost:3000
       '';
     };
