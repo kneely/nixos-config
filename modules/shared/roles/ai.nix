@@ -54,7 +54,6 @@ in
       virtualHosts."ai.lab".extraConfig = ''
         reverse_proxy http://localhost:3000
       '';
-      ports = [ "80:80" "443:443" ];
     };
 
     roles.tsfunnel.tailscaled = {
