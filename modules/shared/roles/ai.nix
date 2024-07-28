@@ -46,12 +46,19 @@ in
       };
     };
 
+    services.caddy = {
+      enable = true;
+      virtualHosts."nixos-open-webui.tail103fe.ts.net".extraConfig = ''
+        reverse_proxy http://10.25.40.6
+      '';
+    };
+
     roles.tsfunnel.tailscaled = {
       TSopen-webui = {
         enable = true;
         imageVersion = "latest";
         TSserve = {
-          "/" = "http://open-webui:8080";
+          "/" = "https://localhost:443";
         };
         enableFunnel = true;
         tags = ["tag:services"];

@@ -13,6 +13,8 @@ in
       enable = true;
       interfaceName = "tailscale0";
 
+      permitCertUid = "caddy";
+
       authKeyFile = config.age.secrets.tailscale.path;
       extraUpFlags = [ "--ssh --advertise-tags" ];
     };

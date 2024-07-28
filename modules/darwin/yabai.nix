@@ -32,13 +32,14 @@ in
           yabai -m config mouse_action2                resize
           yabai -m config mouse_drop_action            swap
   
-          yabai -m config layout                       bsp
+          yabai -m config layout                       float
           yabai -m config top_padding                  8
           yabai -m config bottom_padding               8
           yabai -m config left_padding                 8
           yabai -m config right_padding                8
           yabai -m config window_gap                   8
           #yabai -m rule --add app=""                  manage=off
+          yabai -m space --balance
         '';
       };
 #config for skhd keyboard shortcuts for Yabai Window Manager. 
