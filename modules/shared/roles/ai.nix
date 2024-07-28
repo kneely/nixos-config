@@ -49,8 +49,12 @@ in
     services.caddy = {
       enable = true;
       virtualHosts."nixos-open-webui.tail103fe.ts.net".extraConfig = ''
-        reverse_proxy http://10.25.40.6
+        reverse_proxy http://localhost:3000 
       '';
+      virtualHosts."ai.lab".extraConfig = ''
+        reverse_proxy http://localhost:3000
+      '';
+      ports = [ "80:80" "443:443" ];
     };
 
     roles.tsfunnel.tailscaled = {
