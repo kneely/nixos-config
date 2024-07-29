@@ -41,7 +41,6 @@ in
           USE_CUDA_DOCKER = "true";
           NVIDIA_VISIBLE_DEVICES = "all";
           NVIDIA_DRIVER_CAPABILITIES = "all";
-
         };
       };
     };
@@ -58,7 +57,7 @@ in
         enable = true;
         imageVersion = "latest";
         TSserve = {
-          "/" = "https://localhost:443";
+          "/" = "http://localhost:80";
         };
         enableFunnel = true;
         tags = ["tag:services"];
