@@ -17,7 +17,7 @@ in
 
       authKeyFile = config.age.secrets.tailscale.path;
       extraUpFlags = [ "--ssh --advertise-tags" ];
-      extraDaemonFlags = [ "--outbound-http-proxy-listen=127.0.0.1:443" ];
+      # extraDaemonFlags = [ "--outbound-http-proxy-listen=127.0.0.1:443" ];
     };
 
     age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
