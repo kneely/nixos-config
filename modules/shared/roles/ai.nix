@@ -60,7 +60,7 @@ in
         enable = true;
         imageVersion = "latest";
         TSserve = {
-          "/" = "http://localhost:80";
+          "/" = "http://localhost:3000";
         };
         enableFunnel = true;
         tags = ["tag:services"];
