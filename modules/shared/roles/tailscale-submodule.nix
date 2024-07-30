@@ -118,7 +118,7 @@ let
           "TS_USERSPACE" = "true";
       })
       (lib.mkIf (cfg.TSserve == {}) {
-           "TS_USERSPACE" = "false";
+           "TS_USERSPACE" = "true";
       })
       ];
       environmentFiles = [
