@@ -55,16 +55,16 @@ in
       '';
     };
 
-    roles.tsfunnel.tailscaled = {
-      TSopen-webui = {
-        enable = true;
-        imageVersion = "latest";
-        TSserve = {
-          "/" = "http://open-webui:8080";
-        };
-        enableFunnel = true;
-        tags = ["tag:services"];
-      };
-    };
+    # roles.tsfunnel.tailscaled = {
+    #   TSopen-webui = {
+    #     enable = true;
+    #     imageVersion = "latest";
+    #     TSserve = {
+    #       "/" = "http://open-webui:8080";
+    #     };
+    #     enableFunnel = true;
+    #     tags = ["tag:services"];
+    #   };
+    # };
   };
 }
