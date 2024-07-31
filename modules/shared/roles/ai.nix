@@ -45,15 +45,15 @@ in
       };
     };
 
-    services.caddy = {
-      enable = true;
-      virtualHosts."nixos.tail103fe.ts.net".extraConfig = ''
-        reverse_proxy 127.0.0.1:3000 
-      '';
-      virtualHosts."nixos-open-webui.tail103fe.ts.net".extraConfig = ''
-        reverse_proxy 127.0.0.1:3000 
-      '';
-    };
+    # services.caddy = {
+    #   enable = true;
+    #   virtualHosts."nixos.tail103fe.ts.net".extraConfig = ''
+    #     reverse_proxy 127.0.0.1:3000 
+    #   '';
+    #   virtualHosts."nixos-open-webui.tail103fe.ts.net".extraConfig = ''
+    #     reverse_proxy 127.0.0.1:3000 
+    #   '';
+    # };
 
     # roles.tsfunnel.tailscaled = {
     #   TSopen-webui = {
