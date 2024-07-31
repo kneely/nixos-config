@@ -21,9 +21,9 @@ in
   # services.mediaserver.enable = true;
   roles.pirate.enable = true;
   # roles.authelia.enable = true;
-  roles.tailscale.enable = true;
+  # roles.tailscale.enable = true;
   roles.ai.enable = true;
-  roles.cf-tunnel.enable = true;
+  # roles.cf-tunnel.enable = true;
 
   nixpkgs.config.cudaSupport = true;
   systemd.enableUnifiedCgroupHierarchy = false;
