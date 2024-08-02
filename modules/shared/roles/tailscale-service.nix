@@ -1,7 +1,7 @@
 { config, pkgs, lib, secrets, ... }:
 with lib;
 let cfg = config.roles.tailscale;
-tags = ["tag:services"];
+tags = "tag:services";
 in
 {
   options.roles.tailscale = with types; {
