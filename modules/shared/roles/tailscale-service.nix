@@ -1,7 +1,8 @@
 { config, pkgs, lib, secrets, ... }:
 with lib;
 let cfg = config.roles.tailscale;
-tags = "tag:services";
+tags = ["tag:services"] ;
+formatTags = builtins.concatStringsSep "," tags;
 in
 {
   options.roles.tailscale = with types; {
@@ -19,7 +20,7 @@ in
       # permitCertUid = "caddy";
 
       authKeyFile = config.age.secrets.tailscale.path;
-      extraUpFlags = [ "--ssh" "--advertise-tags ${tags}" ];
+      extraUpFlags = [ "--ssh" "--advertise-tags ${formatTags}" ];
     };
 
     age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
