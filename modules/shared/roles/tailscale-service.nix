@@ -1,6 +1,7 @@
 { config, pkgs, lib, secrets, ... }:
 with lib;
 let cfg = config.roles.tailscale;
+tags = ["tag:services"];
 in
 {
   options.roles.tailscale = with types; {
@@ -9,7 +10,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.tailscale ];
-    
+
     # Enable tailscale daemon.
     services.tailscale = {
       enable = true;
@@ -18,7 +19,7 @@ in
       # permitCertUid = "caddy";
 
       authKeyFile = config.age.secrets.tailscale.path;
-      extraUpFlags = [ "--ssh" "--advertise-tags" ];
+      extraUpFlags = [ "--ssh" "--advertise-tags ${tags}" ];
     };
 
     age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
