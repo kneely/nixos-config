@@ -19,8 +19,8 @@ in
 
       # permitCertUid = "caddy";
 
-      authKeyFile = config.age.secrets.tailscale.path;
-      extraUpFlags = [ "--ssh" "--advertise-tags ${formatTags}" ];
+      # authKeyFile = config.age.secrets.tailscale.path;
+      # extraUpFlags = [ "--ssh" "--advertise-tags ${formatTags}" ];
     };
 
     age.secrets.tailscale.file = "${secrets}/tailscale-auth-key.age";
