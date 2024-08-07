@@ -1,7 +1,7 @@
 {
   description = "Starter Configuration with secrets for MacOS and NixOS";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     agenix.url = "github:ryantm/agenix";
     # home-manager.url = "github:nix-community/home-manager";
     home-manager = {
