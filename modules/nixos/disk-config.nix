@@ -91,6 +91,14 @@ _: {
             type = "zfs_fs";
             mountpoint = "/storage/docker";
           };
+          ai = {
+            type = "zfs_fs";
+            mountpoint = "/storage/ai";
+          };
+          misc = {
+            type = "zfs_fs";
+            mountpoint = "/storage/misc";
+          };
         };
       };
     };
