@@ -10,7 +10,7 @@ in
     ../../modules/nixos/disk-config.nix
     ../../modules/shared
     ../../modules/shared/cachix
-    ../../modules/shared/pirate
+    ../../modules/shared/roles
     agenix.nixosModules.default
   ];
 
@@ -18,7 +18,15 @@ in
     members = [ user ];
   };
 
-  services.mediaserver.enable = true;
+  # services.mediaserver.enable = true;
+  roles.pirate.enable = true;
+  # roles.authelia.enable = true;
+  roles.tailscale.enable = true;
+  roles.ai.enable = true;
+  # roles.cf-tunnel.enable = true;
+
+  nixpkgs.config.cudaSupport = true;
+  systemd.enableUnifiedCgroupHierarchy = false;
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -32,26 +40,15 @@ in
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
     # Uncomment for AMD GPU
     # initrd.kernelModules = [ "amdgpu" ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages;
     kernelModules = [ "uinput" "kvm-amd" ];
+    kernelParams = [ "module_blacklist=i915" ];
+
     supportedFilesystems = ["zfs"];
     zfs.extraPools = [ "storage" ];
+
+    extraModulePackages = [ config.boot.kernelPackages.nvidiaPackages.production ];
   };
-
-  #   fileSystems."/" =
-  #   {
-  #     device = "/dev/disk/by-uuid/c14da5f0-41c7-4aa8-b8c0-1b83db0a7a11";
-  #     fsType = "ext4";
-  #   };
-
-  # fileSystems."/boot" =
-  #   {
-  #     device = "/dev/disk/by-uuid/35E9-E5FB";
-  #     fsType = "vfat";
-  #   };
-
-  # swapDevices =
-  #   [{ device = "/dev/disk/by-uuid/82708878-d96d-4ee0-80cd-d47e6d827517"; }];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -88,14 +85,6 @@ in
   };
 
   services = {
-    tailscale = {
-      enable = true;
-      # extraDaemonFlags = [
-      #   "--ssh"
-      #   "--accept-routes"
-      # ];
-    };
-
     xserver = {
       enable = true;
 
@@ -248,25 +237,12 @@ in
 
     gvfs.enable = true; # Mount, trash, and other functionalities
     tumbler.enable = true; # Thumbnail support for images
-
-    # Emacs runs as a daemon
-    # emacs = {
-    #   enable = true;
-    #   package = pkgs.emacs-unstable;
-    # };
+    
   };
 
-  # When emacs builds from no cache, it exceeds the 90s timeout default
-  # systemd.user.services.emacs = {
-  #   serviceConfig.TimeoutStartSec = "7min";
-  # };
-
-  # Enable CUPS to print documents
-  # services.printing.enable = true;
-  # services.printing.drivers = [ pkgs.brlaser ]; # Brother printer driver
 
   # Enable sound
-  sound.enable = true;
+  # sound.enable = true;
   hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -284,8 +260,17 @@ in
 
   # Video support
   hardware = {
+    # Deprecated: use graphics.enable instead
     opengl.enable = true;
-    nvidia.modesetting.enable = true;
+    # graphics.enable = true;
+    
+    # nvidia.modesetting.enable = true;
+    nvidia = {
+      modesetting.enable = true;
+      open = false;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.production;
+    };
 
     # Enable Xbox support
     # xone.enable = true;
@@ -296,8 +281,53 @@ in
 
 
   # Add docker daemon
-  virtualisation.docker.enable = true;
-  virtualisation.docker.logDriver = "json-file";
+  # virtualisation.docker.enable = true;
+  # virtualisation.docker.logDriver = "json-file";
+  # virtualisation.docker.enableNvidia = true;
+  # # virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+  # virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
+
+  virtualisation = {
+    containers = {
+      # enable = true;
+      cdi.dynamic.nvidia.enable = true;
+    };
+    # docker = {
+    #   enable = true;
+    #   # CDI is feature-gated and only available from Docker 25 and onwards
+    #   package = pkgs.docker_25;
+    #   daemon.settings.features.cdi = true;
+    #   # storageDriver = "zfs";
+    #   logDriver = "json-file";
+    # };
+    # oci-containers.backend = "docker";
+    
+    oci-containers.backend = "podman";
+    podman = {
+      enable = true;
+      
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+      # Make the Podman socket available in place of the Docker socket, so
+      #  Docker tools can find the Podman socket.
+      dockerSocket.enable = false;
+
+      enableNvidia = true;
+
+      defaultNetwork.settings.dns_enabled = true;
+
+      autoPrune = {
+        enable = true; # Periodically prune Podman Images not in use.
+        dates = "weekly";
+        flags = [ "--all" ];
+      };
+    };
+  };
+
+  networking.firewall.interfaces."podman+".allowedUDPPorts = [53 5353];
+
+  hardware.nvidia-container-toolkit.enable = true;
+
 
   # It's me, it's you, it's everyone
   users.users = {

@@ -26,4 +26,13 @@ let user = "kevin"; in
   #   group = "wheel";
   # };
 
+  # age.secrets."tailscale-auth-key" = {
+  #   symlink = false;
+  #   path = "/home/${user}/.secrets/tailscale-auth-key";
+  #   file =  "${secrets}/tailscale-auth-key.age";
+  #   mode = "600";
+  #   owner = "${user}";
+  #   group = "wheel";
+  # };
+
 }

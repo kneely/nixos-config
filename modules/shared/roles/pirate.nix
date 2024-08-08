@@ -1,10 +1,11 @@
 { pkgs, lib, config, ... }:
 with lib;
 let 
-  cfg = config.services.mediaserver;
+  cfg = config.roles.pirate;
+  appDataDir = "/storage/applications";
   dataDirBase = "/storage/media";
 in {
-  options.services.mediaserver.enable =
+  options.roles.pirate.enable =
     mkEnableOption "Enable media server profile";
 
   config = mkIf cfg.enable {
@@ -43,14 +44,28 @@ in {
         enable = true;
         user = "radarr";
         group = "media";
-        dataDir = "${dataDirBase}/radarr";
+        dataDir = "${appDataDir}/radarr";
       };
+
+      # caddy = {
+      #   virtualHosts."radarr.nixos.tail103fe.ts.net".extraConfig = ''
+      #     reverse_proxy 127.0.0.1:7676 
+      #   '';
+      # };
 
       sonarr = {
         enable = true;
         user = "sonarr";
         group = "media";
-        dataDir = "${dataDirBase}/sonarr";
+        dataDir = "${appDataDir}/sonarr";
+      };
+
+      bazarr = {
+        enable = true;
+        user = "bazarr";
+        group = "media";
+        # dataDir = "${appDataDir}/bazarr";
+        openFirewall = true;
       };
 
       jellyseerr = {

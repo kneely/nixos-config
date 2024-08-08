@@ -17,8 +17,8 @@ let
 
   polybar-config = pkgs.substituteAll {
     src = ./config/polybar/config.ini;
-    font0 = "DejaVu Sans:size=12;3";
-    font1 = "feather:size=12;3"; # from overlay
+    # font0 = "DejaVu Sans:size=12;3";
+    # font1 = "feather:size=12;3"; # from overlay
   };
 
   polybar-modules = builtins.readFile ./config/polybar/modules.ini;
@@ -87,7 +87,7 @@ in
           frame_width = 0;
           sort = "no";
           idle_threshold = 120;
-          font = "Noto Sans";
+          # font = "Noto Sans";
           line_height = 4;
           markup = "full";
           format = "<b>%s</b>\n%b";

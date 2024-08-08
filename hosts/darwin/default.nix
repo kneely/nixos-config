@@ -7,10 +7,13 @@ let user = "kevin"; in
   imports = [
     ../../modules/darwin/secrets.nix
     ../../modules/darwin/home-manager.nix
+    ../../modules/darwin/yabai.nix
     ../../modules/shared
     ../../modules/shared/cachix
     agenix.darwinModules.default
   ];
+
+  roles.yabai.enable = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -18,7 +21,23 @@ let user = "kevin"; in
   # Setup user, packages, programs
   nix = {
     package = pkgs.nixVersions.latest;
+
     settings.trusted-users = [ "@admin" "${user}" ];
+
+  #   linux-builder = {
+  #   enable = true;
+  #   ephemeral = true;
+  #   maxJobs = 4;
+  #   config = {
+  #     virtualisation = {
+  #       darwin-builder = {
+  #         diskSize = 20 * 1024;
+  #         memorySize = 8 * 1024;
+  #       };
+  #       cores = 6;
+  #     };
+  #   };
+  # };
 
     gc = {
       user = "root";
