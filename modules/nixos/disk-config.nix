@@ -8,8 +8,8 @@ _: {
           type = "gpt";
           partitions = {
             ESP = {
-              size = "64M";
               type = "EF00";
+              size = "1G";
               content = {
                 type = "filesystem";
                 format = "vfat";
