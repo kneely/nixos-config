@@ -16,7 +16,7 @@ check_installer() {
 }
 
 cleanup() {
-  rm -rf nixos-config-main.zip nixos-config-main nixos-config
+  sudo rm -rf nixos-config-main.zip nixos-config-main nixos-config
 }
 
 download_config() {
@@ -45,9 +45,9 @@ setup_files() {
   sudo cp -r * /mnt/etc/nixos
   cd /mnt/etc/nixos
 
-  mkdir -p /root/.ssh
-  touch /root/.ssh/known_hosts
-  ssh-keyscan -t ed25519 github.com >> /root/.ssh/known_hosts
+  # mkdir -p /home/${USERNAME}/.ssh
+  # touch /home/${USERNAME}/.ssh/known_hosts
+  # ssh-keyscan -t ed25519 github.com >> /home/${USERNAME}/.ssh/known_hosts
 }
 
 setup_ssh_keys() {
@@ -103,10 +103,10 @@ check_installer
 download_config
 fix_permissions
 # run_apply
-run_disko
+# run_disko
 setup_files
-setup_ssh_keys
-link_home_dir
+# setup_ssh_keys
+# link_home_dir
 install_nixos
 cleanup
 
