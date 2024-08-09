@@ -272,7 +272,7 @@ in
       package = config.boot.kernelPackages.nvidiaPackages.production;
     };
 
-    nvidia-container-toolkit.enable = true;
+    # nvidia-container-toolkit.enable = true;
 
     # Enable Xbox support
     # xone.enable = true;
