@@ -314,7 +314,7 @@ in
       #  Docker tools can find the Podman socket.
       dockerSocket.enable = false;
 
-      enableNvidia = true;
+      # enableNvidia = true;
 
       defaultNetwork.settings.dns_enabled = true;
 
