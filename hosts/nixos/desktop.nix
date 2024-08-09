@@ -272,6 +272,8 @@ in
       package = config.boot.kernelPackages.nvidiaPackages.production;
     };
 
+    nvidia-container-toolkit.enable = true;
+
     # Enable Xbox support
     # xone.enable = true;
 
@@ -288,10 +290,10 @@ in
   # virtualisation.docker.extraOptions = "--add-runtime nvidia=/run/current-system/sw/bin/nvidia-container-runtime";
 
   virtualisation = {
-    containers = {
-      # enable = true;
-      cdi.dynamic.nvidia.enable = true;
-    };
+    # containers = {
+    #   # enable = true;
+    #   cdi.dynamic.nvidia.enable = true;
+    # };
     # docker = {
     #   enable = true;
     #   # CDI is feature-gated and only available from Docker 25 and onwards
@@ -325,9 +327,6 @@ in
   };
 
   networking.firewall.interfaces."podman+".allowedUDPPorts = [53 5353];
-
-  hardware.nvidia-container-toolkit.enable = true;
-
 
   # It's me, it's you, it's everyone
   users.users = {
