@@ -73,12 +73,12 @@ in {
         openFirewall = true;
       };
 
-      jellyfin = {
-        enable = true;
-        user = "jellyfin";
-        group = "media";
-        openFirewall = true;
-      };
+      # jellyfin = {
+      #   enable = true;
+      #   user = "jellyfin";
+      #   group = "media";
+      #   openFirewall = true;
+      # };
     };
   };
 }
