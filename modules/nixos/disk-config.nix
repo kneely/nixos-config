@@ -95,10 +95,10 @@ _: {
             type = "zfs_fs";
             mountpoint = "/storage/ai";
           };
-          misc = {
-            type = "zfs_fs";
-            mountpoint = "/storage/misc";
-          };
+          # misc = {
+          #   type = "zfs_fs";
+          #   mountpoint = "/storage/misc";
+          # };
         };
       };
     };

@@ -103,7 +103,6 @@ check_installer
 download_config
 fix_permissions
 # run_apply
-# run_disko
 setup_files
 # setup_ssh_keys
 # link_home_dir
