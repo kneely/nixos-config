@@ -56,7 +56,7 @@ in
         volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
         extraOptions = [ "--pull=newer" "--network=host" ];
         environment = {
-          PORT = "3000";
+          PORT = "9090";
           OLLAMA_BASE_URL = "http://localhost:11434";
           # USE_CUDA_DOCKER = "true";
           # NVIDIA_VISIBLE_DEVICES = "all";
