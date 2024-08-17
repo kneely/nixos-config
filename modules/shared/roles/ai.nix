@@ -54,7 +54,7 @@ in
         image = "ghcr.io/open-webui/open-webui:main";
         ports = [ "3000:8080" ];
         volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
-        extraOptions = [ "--gpus=all" "--pull=newer"  ];
+        extraOptions = [ "--pull=newer"  ];
         environment = {
           OLLAMA_BASE_URL = "http://127.0.0.1:11434";
           # USE_CUDA_DOCKER = "true";
