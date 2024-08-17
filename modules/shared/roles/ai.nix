@@ -32,10 +32,10 @@ in
 
       # docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:cuda
       open-webui = {
-        image = "ghcr.io/open-webui/open-webui:cuda";
+        image = "ghcr.io/open-webui/open-webui:main";
         ports = [ "3000:8080" ];
         volumes = [ "${dockerDataDir}/open-webui:/app/backend/data" ];
-        extraOptions = [ "--gpus=all" "--pull=newer"  ];
+        # extraOptions = [ "--gpus=all" "--pull=newer"  ];
         environment = {
           OLLAMA_BASE_URL = "http://ollama:11434";
           USE_CUDA_DOCKER = "true";
