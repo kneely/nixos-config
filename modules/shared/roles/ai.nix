@@ -35,7 +35,7 @@ in
       enable = true;
       port = 3000;
       openFirewall = true;
-      environmentVariables = {
+      environment = {
         OLLAMA_BASE_URL = "http://localhost:11434";
       };
     };
