@@ -10,6 +10,9 @@ FLAKE_SYSTEM="darwinConfigurations.${SYSTEM_TYPE}.system"
 
 export NIXPKGS_ALLOW_UNFREE=1
 
+echo "${YELLOW}Updating flake inputs...${NC}"
+nix flake update
+
 echo "${YELLOW}Starting build...${NC}"
 nix --extra-experimental-features 'nix-command flakes' build .#$FLAKE_SYSTEM $@
 
