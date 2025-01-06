@@ -27,9 +27,8 @@ with pkgs; [
 
   # Development SDKs and tools
   (with dotnetCorePackages; combinePackages [
-    sdk_6_0
-    sdk_7_0
     sdk_8_0
+    sdk_9_0
   ])
   csharpier
   devenv
@@ -74,6 +73,6 @@ with pkgs; [
   zsh-powerlevel10k
 
   # Python packages
-  python39
-  python39Packages.virtualenv # globally install virtualenv
+  # python39
+  # python39Packages.virtualenv # globally install virtualenv
 ]

@@ -62,9 +62,8 @@ in
     dock = {
       enable = true;
       entries = [
-        { path = "/Applications/Floorp.app/"; }
+        { path = "/Applications/Google Chrome.app/"; }
         { path = "${pkgs.wezterm}/Applications/Wezterm.app/"; }
-        # Visual Studio Code
         { path = "/Applications/Visual Studio Code.app/"; }
         # { path = "/System/Applications/Music.app/"; }
         # { path = "/System/Applications/News.app/"; }
