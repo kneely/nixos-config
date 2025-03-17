@@ -14,7 +14,6 @@ with pkgs; [
   killall
   neofetch
   openssh
-  sqlite
   wget
   zip
   git
@@ -32,6 +31,8 @@ with pkgs; [
   ])
   csharpier
   devenv
+  # python3
+  # uv
 
   # Encryption and security tools
   age
@@ -55,9 +56,9 @@ with pkgs; [
   meslo-lgs-nf
 
   # Node.js development tools
-  nodePackages.npm # globally install npm
-  nodePackages.prettier
-  nodejs
+  # nodePackages.npm # globally install npm
+  # nodePackages.prettier
+  # nodejs
 
   # Text and terminal utilities
   htop

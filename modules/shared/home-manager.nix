@@ -8,15 +8,15 @@ let name = "Kevin Neely";
   bat.enable = true;
   atuin.enable = true;
   zoxide.enable = true;
-  direnv.enable = true;
+  # direnv.enable = true;
   starship.enable = true;
   dircolors.enable = true;
 
-  # direnv = {
-  #   enable = true;
-  #   enableZshIntegration = true; # see note on other shells below
-  #   nix-direnv.enable = true;
-  # };
+  direnv = {
+    enable = true;
+    enableZshIntegration = true; # see note on other shells below
+    nix-direnv.enable = true;
+  };
 
   # # Shared shell configuration
   # atuin = {
